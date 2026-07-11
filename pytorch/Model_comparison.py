@@ -369,6 +369,21 @@ Support Vector Machine (SVM) Algorithm (From GeeksForGeeks)
         maximizing the margin between them. This margin 
         is the distance from the hyperplane to the nearest 
         data points (support vectors) on each side.
+
+For multi-class classification with SVMs we can use the One-vs-One
+    strategy and the One-vs-All strategy
+From GeeksForGeeks:
+    The One-vs-One (OvO) approach involves creating a binary classifier 
+    for every possible pair of classes. This method is particularly advantageous 
+    when the number of classes is relatively small, as it allows for a focused 
+    comparison between pairs of classes. Each classifier is responsible for 
+    distinguishing between two specific classes, effectively ignoring the others.
+
+    The One-vs-All (OvA) approach, also known as One-vs-Rest, involves training 
+    a single binary classifier for each class. In this method, each class is 
+    treated as the positive class, while all other classes are grouped together 
+    as the negative class. This approach is straightforward and scales linearly 
+    with the number of classes.
 """
 print("\nSupport Vector Machine\n")
 
@@ -1274,7 +1289,7 @@ col_names= ["Plant Health", "Random Forest", "Random Forest optimized", "Support
 plt_names= ["Random Forest", "Random Forest optimized", "Support Vector Machine (One Vs One)", "Support Vector Machine (One Vs All)", "Decision tree - Gini", "Decision tree - Entropy", "Decision tree - Gini optimized", "Decision tree - Entropy optimized", "Gradient Boosting", "Gradient Boosting - Optimized"]
 class_names=["Healthy", "Moderate Stress", "High Stress"]
 
-print("\n\nPlat health Model Testing\n\n")
+print("\n\nPlant health Model Testing\n\n")
 for index, model in enumerate(model_list):
     # Train the model
     print(f"\n{plt_names[index]} model under test\n")
