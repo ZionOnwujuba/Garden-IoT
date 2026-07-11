@@ -65,7 +65,7 @@ The general breakdown of this model comparison (or the most boring competition e
    1. Use the same epochs, but tweak optimize the model as much as possible (change hyperparmeters, perform regularization, etc)
    2. Use confusion matricies, accuracy, and a Classification report to compare the models
 
-With that, I should be able to pick the best model for my project!
+With that, I should be able to pick the best model for my project! The code for this comparison will be located in this [file](pytorch/Model_comparison.py)
 
 Tutorials used:
 - [Random Forest Classification](https://www.geeksforgeeks.org/machine-learning/random-forest-algorithm-in-machine-learning/)
