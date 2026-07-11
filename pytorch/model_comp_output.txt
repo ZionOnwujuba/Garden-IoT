@@ -1,0 +1,1171 @@
+
+Dataset Features Types & shape: 
+Gender                                str
+Age                               float64
+Height                            float64
+Weight                            float64
+family_history_with_overweight        str
+FAVC                                  str
+FCVC                              float64
+NCP                               float64
+CAEC                                  str
+SMOKE                                 str
+CH2O                              float64
+SCC                                   str
+FAF                               float64
+TUE                               float64
+CALC                                  str
+MTRANS                                str
+NObeyesdad                            str
+dtype: object, (2111, 17)
+
+      Gender        Age  ...                 MTRANS           NObeyesdad
+0     Female  21.000000  ...  Public_Transportation        Normal_Weight
+1     Female  21.000000  ...  Public_Transportation        Normal_Weight
+2       Male  23.000000  ...  Public_Transportation        Normal_Weight
+3       Male  27.000000  ...                Walking   Overweight_Level_I
+4       Male  22.000000  ...  Public_Transportation  Overweight_Level_II
+...      ...        ...  ...                    ...                  ...
+2106  Female  20.976842  ...  Public_Transportation     Obesity_Type_III
+2107  Female  21.982942  ...  Public_Transportation     Obesity_Type_III
+2108  Female  22.524036  ...  Public_Transportation     Obesity_Type_III
+2109  Female  24.361936  ...  Public_Transportation     Obesity_Type_III
+2110  Female  23.664709  ...  Public_Transportation     Obesity_Type_III
+
+[2111 rows x 17 columns]
+
+Categorical Conversions Dataset Features Types & shape: 
+Gender                            category
+Age                                float64
+Height                             float64
+Weight                             float64
+family_history_with_overweight    category
+FAVC                              category
+FCVC                               float64
+NCP                                float64
+CAEC                              category
+SMOKE                             category
+CH2O                               float64
+SCC                               category
+FAF                                float64
+TUE                                float64
+CALC                              category
+MTRANS                            category
+NObeyesdad                        category
+dtype: object, (2111, 17)
+
+      Gender        Age    Height  ...  CALC  MTRANS  NObeyesdad
+0        0.0  21.000000  1.620000  ...   0.0     0.0         0.0
+1        0.0  21.000000  1.520000  ...   1.0     0.0         0.0
+2        1.0  23.000000  1.800000  ...   2.0     0.0         0.0
+3        1.0  27.000000  1.800000  ...   2.0     1.0         1.0
+4        1.0  22.000000  1.780000  ...   1.0     0.0         2.0
+...      ...        ...       ...  ...   ...     ...         ...
+2106     0.0  20.976843  1.710730  ...   1.0     0.0         6.0
+2107     0.0  21.982943  1.748584  ...   1.0     0.0         6.0
+2108     0.0  22.524036  1.752206  ...   1.0     0.0         6.0
+2109     0.0  24.361937  1.739450  ...   1.0     0.0         6.0
+2110     0.0  23.664709  1.738836  ...   1.0     0.0         6.0
+
+[2111 rows x 17 columns]
+
+Numerical Conversions Dataset Features Types & shape: 
+Gender                            float32
+Age                               float32
+Height                            float32
+Weight                            float32
+family_history_with_overweight    float32
+FAVC                              float32
+FCVC                              float32
+NCP                               float32
+CAEC                              float32
+SMOKE                             float32
+CH2O                              float32
+SCC                               float32
+FAF                               float32
+TUE                               float32
+CALC                              float32
+MTRANS                            float32
+NObeyesdad                        float32
+dtype: object, (2111, 17)
+
+      Gender        Age    Height      Weight  ...       FAF       TUE  CALC  MTRANS
+0        0.0  21.000000  1.620000   64.000000  ...  0.000000  1.000000   0.0     0.0
+1        0.0  21.000000  1.520000   56.000000  ...  3.000000  0.000000   1.0     0.0
+2        1.0  23.000000  1.800000   77.000000  ...  2.000000  1.000000   2.0     0.0
+3        1.0  27.000000  1.800000   87.000000  ...  2.000000  0.000000   2.0     1.0
+4        1.0  22.000000  1.780000   89.800003  ...  0.000000  0.000000   1.0     0.0
+...      ...        ...       ...         ...  ...       ...       ...   ...     ...
+2106     0.0  20.976843  1.710730  131.408524  ...  1.676269  0.906247   1.0     0.0
+2107     0.0  21.982943  1.748584  133.742950  ...  1.341390  0.599270   1.0     0.0
+2108     0.0  22.524036  1.752206  133.689346  ...  1.414209  0.646288   1.0     0.0
+2109     0.0  24.361937  1.739450  133.346634  ...  1.139107  0.586035   1.0     0.0
+2110     0.0  23.664709  1.738836  133.472641  ...  1.026452  0.714137   1.0     0.0
+
+[2111 rows x 16 columns] 0       0.0
+1       0.0
+2       0.0
+3       1.0
+4       2.0
+       ... 
+2106    6.0
+2107    6.0
+2108    6.0
+2109    6.0
+2110    6.0
+Name: NObeyesdad, Length: 2111, dtype: float32
+                                  Gender       Age  ...      CALC    MTRANS
+Gender                          1.000000  0.048394  ... -0.007616  0.164116
+Age                             0.048394  1.000000  ...  0.044487  0.567983
+Height                          0.618466 -0.025958  ...  0.129732  0.085768
+Weight                          0.161668  0.202560  ...  0.206677 -0.046615
+family_history_with_overweight -0.102512 -0.205725  ...  0.036676 -0.065036
+FAVC                            0.064934  0.063902  ...  0.089520 -0.009102
+FCVC                           -0.274505  0.016291  ...  0.060781 -0.065098
+NCP                             0.067600 -0.043944  ...  0.071747  0.059022
+CAEC                           -0.006900 -0.125836  ...  0.015833 -0.062877
+SMOKE                           0.044698  0.091987  ...  0.082471  0.021045
+CH2O                            0.107930 -0.045304  ...  0.091386 -0.035638
+SCC                            -0.102633 -0.116283  ...  0.003463 -0.012794
+FAF                             0.189607 -0.144938  ... -0.086799  0.036098
+TUE                             0.017269 -0.296931  ... -0.045864 -0.165571
+CALC                           -0.007616  0.044487  ...  1.000000 -0.025492
+MTRANS                          0.164116  0.567983  ... -0.025492  1.000000
+
+[16 rows x 16 columns]
+
+Random Forest Classifier
+
+
+Target Prediction: [4. 6. 4. 4. 0. 4. 5. 1. 3. 4. 3. 6. 5. 5. 6. 2. 6. 5. 3. 2. 3. 1. 6. 3.
+ 0. 2. 2. 6. 6. 4. 6. 1. 2. 0. 4. 6. 3. 0. 0. 0. 0. 5. 0. 1. 1. 4. 5. 0.
+ 3. 5. 0. 0. 0. 1. 4. 1. 5. 5. 1. 5. 0. 6. 2. 4. 5. 3. 0. 6. 4. 0. 2. 2.
+ 4. 4. 1. 5. 5. 1. 6. 5. 0. 3. 5. 5. 3. 3. 0. 2. 0. 2. 2. 5. 4. 1. 2. 4.
+ 0. 3. 1. 5. 3. 3. 6. 3. 2. 3. 0. 6. 6. 5. 3. 0. 3. 0. 4. 3. 3. 5. 2. 0.
+ 6. 5. 3. 1. 0. 5. 3. 3. 6. 5. 6. 5. 0. 3. 2. 6. 4. 6. 0. 3. 1. 2. 4. 4.
+ 0. 5. 3. 6. 4. 3. 4. 4. 0. 5. 3. 1. 2. 1. 4. 4. 0. 0. 3. 4. 5. 4. 5. 0.
+ 1. 2. 0. 2. 5. 6. 3. 2. 3. 2. 3. 0. 4. 5. 4. 1. 5. 3. 1. 6. 5. 5. 4. 6.
+ 4. 0. 6. 0. 5. 3. 6. 4. 5. 5. 6. 6. 0. 6. 1. 1. 3. 6. 1. 3. 4. 3. 5. 4.
+ 1. 5. 5. 3. 6. 2. 5. 1. 5. 2. 4. 6. 1. 1. 1. 6. 0. 1. 0. 3. 3. 3. 3. 4.
+ 2. 2. 1. 3. 3. 3. 0. 3. 3. 4. 1. 3. 4. 1. 0. 2. 3. 5. 3. 3. 6. 6. 1. 3.
+ 3. 6. 6. 0. 0. 6. 5. 6. 2. 3. 5. 3. 5. 6. 5. 4. 4. 1. 2. 6. 6. 1. 3. 2.
+ 4. 5. 3. 1. 0. 3. 4. 1. 5. 5. 2. 2. 0. 1. 4. 4. 1. 0. 2. 1. 2. 6. 1. 5.
+ 0. 6. 1. 2. 3. 6. 2. 0. 4. 0. 6. 4. 0. 6. 3. 3. 6. 0. 0. 0. 5. 6. 3. 1.
+ 3. 4. 4. 0. 3. 6. 2. 3. 6. 5. 1. 3. 1. 2. 2. 6. 2. 0. 4. 2. 2. 2. 1. 2.
+ 2. 5. 3. 3. 5. 6. 3. 2. 1. 6. 4. 3. 0. 5. 3. 1. 4. 0. 3. 3. 2. 2. 1. 4.
+ 6. 1. 6. 6. 0. 3. 5. 1. 6. 2. 5. 1. 4. 6. 1. 6. 0. 4. 0. 1. 3. 0. 4. 6.
+ 0. 6. 2. 1. 1. 1. 6. 4. 0. 3. 1. 5. 0. 5. 2.]
+
+
+Accuracy for Random Forest: 0.95
+
+
+Classification Report for Random Forest:
+               precision    recall  f1-score   support
+
+         0.0       0.89      0.90      0.90        62
+         1.0       0.88      0.89      0.88        56
+         2.0       0.96      0.96      0.96        50
+         3.0       0.99      0.96      0.97        78
+         4.0       0.98      0.96      0.97        56
+         5.0       0.97      0.98      0.97        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.95       423
+   macro avg       0.95      0.95      0.95       423
+weighted avg       0.95      0.95      0.95       423
+
+
+Random Forest (Optimized)
+
+
+Incorrect Predictions: ['Overweight Level I (Normal Weight)', 'Overweight Level I (Overweight Level II)', 'Overweight Level I (Normal Weight)', 'Overweight Level II (Overweight Level I)', 'Overweight Level II (Insufficient Weight)', 'Normal Weight (Overweight Level I)', 'Overweight Level I (Normal Weight)', 'Overweight Level I (Overweight Level II)', 'Normal Weight (Overweight Level I)', 'Obesity Type II (Insufficient Weight)', 'Normal Weight (Overweight Level I)', 'Normal Weight (Overweight Level I)', 'Insufficient Weight (Obesity Type II)', 'Overweight Level I (Normal Weight)', 'Obesity Type II (Insufficient Weight)', 'Obesity Type I (Normal Weight)', 'Normal Weight (Obesity Type I)', 'Normal Weight (Obesity Type I)', 'Overweight Level I (Normal Weight)', 'Normal Weight (Overweight Level I)']
+
+
+Accuracy for Random Forest after hyperparameter tuning: 0.95
+
+
+Classification Report for Random Forest after hyperparameter tuning:
+               precision    recall  f1-score   support
+
+         0.0       0.89      0.90      0.90        62
+         1.0       0.88      0.89      0.88        56
+         2.0       0.96      0.96      0.96        50
+         3.0       0.99      0.96      0.97        78
+         4.0       0.98      0.96      0.97        56
+         5.0       0.97      0.98      0.97        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.95       423
+   macro avg       0.95      0.95      0.95       423
+weighted avg       0.95      0.95      0.95       423
+
+
+Support Vector Machine
+
+SVM One-vs-One Accuracy: 0.8936170212765957
+
+Accuracy for SVM (One vs One): 0.89
+
+
+Classification Report for SVM (One vs One):
+               precision    recall  f1-score   support
+
+         0.0       0.76      0.85      0.80        62
+         1.0       0.78      0.75      0.76        56
+         2.0       0.88      0.84      0.86        50
+         3.0       0.96      0.87      0.91        78
+         4.0       0.95      0.95      0.95        56
+         5.0       0.93      0.98      0.96        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.89       423
+   macro avg       0.89      0.89      0.89       423
+weighted avg       0.90      0.89      0.89       423
+
+SVM One-vs-All Accuracy: 0.8936170212765957
+
+Accuracy for SVM (One vs All): 0.89
+
+
+Classification Report for SVM (One vs All):
+               precision    recall  f1-score   support
+
+         0.0       0.76      0.85      0.80        62
+         1.0       0.78      0.75      0.76        56
+         2.0       0.88      0.84      0.86        50
+         3.0       0.96      0.87      0.91        78
+         4.0       0.95      0.95      0.95        56
+         5.0       0.93      0.98      0.96        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.89       423
+   macro avg       0.89      0.89      0.89       423
+weighted avg       0.90      0.89      0.89       423
+
+
+Decision Tree
+
+
+Gini Training
+
+
+Accuracy after Gini training: 0.63
+
+
+Classification Report after Gini training:
+               precision    recall  f1-score   support
+
+         0.0       0.50      0.37      0.43        62
+         1.0       0.49      0.66      0.56        56
+         2.0       0.38      0.86      0.52        50
+         3.0       0.79      0.19      0.31        78
+         4.0       0.83      0.61      0.70        56
+         5.0       0.82      0.91      0.86        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.63       423
+   macro avg       0.69      0.66      0.63       423
+weighted avg       0.70      0.63      0.62       423
+
+
+Entropy Training
+
+
+Accuracy after Entropy training: 0.63
+
+
+Classification Report after Entropy training:
+               precision    recall  f1-score   support
+
+         0.0       0.49      0.37      0.42        62
+         1.0       0.49      0.64      0.55        56
+         2.0       0.39      0.82      0.53        50
+         3.0       0.60      0.32      0.42        78
+         4.0       0.83      0.61      0.70        56
+         5.0       0.88      0.76      0.81        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.63       423
+   macro avg       0.67      0.65      0.63       423
+weighted avg       0.67      0.63      0.63       423
+
+
+Optimized Gini Decision Tree
+
+
+Optimized Accuracy after Gini training: 0.94
+
+
+Optimized Classification Report after Gini training:
+               precision    recall  f1-score   support
+
+         0.0       0.90      0.85      0.88        62
+         1.0       0.91      0.91      0.91        56
+         2.0       0.94      0.96      0.95        50
+         3.0       0.95      0.92      0.94        78
+         4.0       0.89      0.96      0.92        56
+         5.0       0.96      0.95      0.96        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.94       423
+   macro avg       0.94      0.94      0.94       423
+weighted avg       0.94      0.94      0.94       423
+
+
+Optimized Entropy Decision Tree
+
+
+Optimized Accuracy after Entropy training: 0.94
+
+
+Optimized Classification Report after Entropy training:
+               precision    recall  f1-score   support
+
+         0.0       0.90      0.85      0.88        62
+         1.0       0.91      0.91      0.91        56
+         2.0       0.94      0.96      0.95        50
+         3.0       0.95      0.92      0.94        78
+         4.0       0.89      0.96      0.92        56
+         5.0       0.96      0.95      0.96        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.94       423
+   macro avg       0.94      0.94      0.94       423
+weighted avg       0.94      0.94      0.94       423
+
+
+Gradient Boosting
+
+
+Accuracy for Gradient Boosting Classifier: 0.96
+
+
+Classification Report for Gradient Boosting Classifier:
+               precision    recall  f1-score   support
+
+         0.0       0.95      0.89      0.92        62
+         1.0       0.87      0.93      0.90        56
+         2.0       0.98      0.94      0.96        50
+         3.0       0.96      0.95      0.95        78
+         4.0       0.97      1.00      0.98        56
+         5.0       0.97      0.98      0.97        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.96       423
+   macro avg       0.96      0.96      0.95       423
+weighted avg       0.96      0.96      0.96       423
+
+
+Accuracy for Gradient Boosting after hyperparameter tuning: 0.96
+
+
+Classification Report for Gradient Boosting after hyperparameter tuning:
+               precision    recall  f1-score   support
+
+         0.0       0.96      0.85      0.91        62
+         1.0       0.87      0.95      0.91        56
+         2.0       0.98      0.98      0.98        50
+         3.0       0.99      0.94      0.96        78
+         4.0       0.93      1.00      0.97        56
+         5.0       0.95      0.98      0.97        58
+         6.0       1.00      1.00      1.00        63
+
+    accuracy                           0.96       423
+   macro avg       0.95      0.96      0.95       423
+weighted avg       0.96      0.96      0.95       423
+
+
+Multivariate Long Short Term Memory Model
+
+
+Train Input:       Gender        Age    Height      Weight  ...       FAF       TUE  CALC  MTRANS
+0        0.0  21.000000  1.620000   64.000000  ...  0.000000  1.000000   0.0     0.0
+1        0.0  21.000000  1.520000   56.000000  ...  3.000000  0.000000   1.0     0.0
+2        1.0  23.000000  1.800000   77.000000  ...  2.000000  1.000000   2.0     0.0
+3        1.0  27.000000  1.800000   87.000000  ...  2.000000  0.000000   2.0     1.0
+4        1.0  22.000000  1.780000   89.800003  ...  0.000000  0.000000   1.0     0.0
+...      ...        ...       ...         ...  ...       ...       ...   ...     ...
+1683     1.0  21.654800  1.755938  116.311958  ...  1.689525  0.764452   1.0     0.0
+1684     1.0  22.829754  1.765137  116.669907  ...  1.112504  0.690353   1.0     0.0
+1685     1.0  25.015173  1.788239  115.382523  ...  1.392406  0.391740   1.0     0.0
+1686     1.0  23.812796  1.767121  116.164352  ...  0.976425  0.690082   1.0     0.0
+1687     1.0  23.975685  1.840039  120.975487  ...  1.520010  0.295685   1.0     0.0
+
+[1688 rows x 16 columns]
+ Test Input:       Gender        Age    Height      Weight  ...       FAF       TUE  CALC  MTRANS
+1688     1.0  24.149036  1.824901  120.805717  ...  1.943743  0.682128   1.0     0.0
+1689     1.0  25.062943  1.828391  120.998268  ...  1.685369  0.264969   1.0     0.0
+1690     1.0  25.140074  1.829529  120.996582  ...  1.467863  0.343635   1.0     0.0
+1691     1.0  30.722801  1.779325  120.751656  ...  0.350717  1.140348   1.0     2.0
+1692     1.0  30.916426  1.781139  120.794533  ...  0.425621  1.416353   1.0     2.0
+...      ...        ...       ...         ...  ...       ...       ...   ...     ...
+2106     0.0  20.976843  1.710730  131.408524  ...  1.676269  0.906247   1.0     0.0
+2107     0.0  21.982943  1.748584  133.742950  ...  1.341390  0.599270   1.0     0.0
+2108     0.0  22.524036  1.752206  133.689346  ...  1.414209  0.646288   1.0     0.0
+2109     0.0  24.361937  1.739450  133.346634  ...  1.139107  0.586035   1.0     0.0
+2110     0.0  23.664709  1.738836  133.472641  ...  1.026452  0.714137   1.0     0.0
+
+[423 rows x 16 columns]
+ Train Shape: (1688, 16)
+ Length of Train input: 1688
+
+Epoch: 0 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
+Epoch: 10 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
+Epoch: 20 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
+Epoch: 30 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
+Epoch: 40 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+Epoch: 50 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+Epoch: 60 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+Epoch: 70 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+Epoch: 80 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+Epoch: 90 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+
+Accuracy for Multivariate LSTM: 0.00
+
+
+Classification Report for Multivariate LSTM:
+               precision    recall  f1-score   support
+
+         1.0       0.00      0.00      0.00       0.0
+         5.0       0.00      0.00      0.00      91.0
+         6.0       0.00      0.00      0.00     312.0
+
+    accuracy                           0.00     403.0
+   macro avg       0.00      0.00      0.00     403.0
+weighted avg       0.00      0.00      0.00     403.0
+
+
+Accuracy Ranking:
+                            Model_name  Accuracy
+9        Gradient Boosting - Optimized  0.955083
+8                    Gradient Boosting  0.955083
+1              Random Forest optimized  0.952719
+0                        Random Forest  0.952719
+6       Decision tree - Gini optimized  0.936170
+7    Decision tree - Entropy optimized  0.936170
+3  Support Vector Machine (One Vs All)  0.893617
+2  Support Vector Machine (One Vs One)  0.893617
+4                 Decision tree - Gini  0.633570
+5              Decision tree - Entropy  0.628842
+
+Random Forest: 
+                           feature  importance_mean  importance_std
+3                           Weight         0.615130        0.023988
+2                           Height         0.082270        0.007535
+0                           Gender         0.066194        0.009456
+1                              Age         0.052009        0.015174
+6                             FCVC         0.041608        0.008537
+4   family_history_with_overweight         0.016548        0.004959
+14                            CALC         0.008511        0.004385
+13                             TUE         0.008038        0.002411
+12                             FAF         0.006147        0.005092
+7                              NCP         0.004728        0.002990
+8                             CAEC         0.003783        0.001891
+11                             SCC         0.001891        0.000946
+10                            CH2O         0.001418        0.004633
+15                          MTRANS         0.000473        0.002757
+9                            SMOKE         0.000000        0.000000
+5                             FAVC        -0.006147        0.002411
+
+
+Random Forest optimized: 
+                           feature  importance_mean  importance_std
+3                           Weight         0.615130        0.023988
+2                           Height         0.082270        0.007535
+0                           Gender         0.066194        0.009456
+1                              Age         0.052009        0.015174
+6                             FCVC         0.041608        0.008537
+4   family_history_with_overweight         0.016548        0.004959
+14                            CALC         0.008511        0.004385
+13                             TUE         0.008038        0.002411
+12                             FAF         0.006147        0.005092
+7                              NCP         0.004728        0.002990
+8                             CAEC         0.003783        0.001891
+11                             SCC         0.001891        0.000946
+10                            CH2O         0.001418        0.004633
+15                          MTRANS         0.000473        0.002757
+9                            SMOKE         0.000000        0.000000
+5                             FAVC        -0.006147        0.002411
+
+
+Support Vector Machine (One Vs One): 
+                           feature  importance_mean  importance_std
+3                           Weight         0.476123        0.014074
+0                           Gender         0.144208        0.014877
+2                           Height         0.095035        0.007826
+4   family_history_with_overweight         0.072813        0.012275
+1                              Age         0.065721        0.010074
+5                             FAVC         0.064775        0.005514
+11                             SCC         0.043499        0.006092
+6                             FCVC         0.040189        0.006687
+7                              NCP         0.039716        0.006414
+8                             CAEC         0.039243        0.008271
+14                            CALC         0.038298        0.011716
+13                             TUE         0.034043        0.009873
+15                          MTRANS         0.034043        0.007855
+10                            CH2O         0.015130        0.011639
+12                             FAF         0.014657        0.008896
+9                            SMOKE         0.007092        0.003343
+
+
+Support Vector Machine (One Vs All): 
+                           feature  importance_mean  importance_std
+3                           Weight         0.476123        0.014074
+0                           Gender         0.144208        0.014877
+2                           Height         0.095035        0.007826
+4   family_history_with_overweight         0.072813        0.012275
+1                              Age         0.065721        0.010074
+5                             FAVC         0.064775        0.005514
+11                             SCC         0.043499        0.006092
+6                             FCVC         0.040189        0.006687
+7                              NCP         0.039716        0.006414
+8                             CAEC         0.039243        0.008271
+14                            CALC         0.038298        0.011716
+13                             TUE         0.034043        0.009873
+15                          MTRANS         0.034043        0.007855
+10                            CH2O         0.015130        0.011639
+12                             FAF         0.014657        0.008896
+9                            SMOKE         0.007092        0.003343
+
+
+Decision tree - Gini: 
+                           feature  importance_mean  importance_std
+3                           Weight         0.431206        0.006949
+0                           Gender         0.157447        0.008921
+1                              Age         0.060993        0.010185
+2                           Height         0.033097        0.006165
+4   family_history_with_overweight         0.000000        0.000000
+5                             FAVC         0.000000        0.000000
+6                             FCVC         0.000000        0.000000
+7                              NCP         0.000000        0.000000
+8                             CAEC         0.000000        0.000000
+9                            SMOKE         0.000000        0.000000
+10                            CH2O         0.000000        0.000000
+11                             SCC         0.000000        0.000000
+12                             FAF         0.000000        0.000000
+13                             TUE         0.000000        0.000000
+14                            CALC         0.000000        0.000000
+15                          MTRANS         0.000000        0.000000
+
+
+Decision tree - Entropy: 
+                           feature  importance_mean  importance_std
+3                           Weight         0.440189        0.009021
+0                           Gender         0.158392        0.006687
+2                           Height         0.033097        0.006165
+1                              Age         0.000000        0.000000
+4   family_history_with_overweight         0.000000        0.000000
+5                             FAVC         0.000000        0.000000
+6                             FCVC         0.000000        0.000000
+7                              NCP         0.000000        0.000000
+8                             CAEC         0.000000        0.000000
+9                            SMOKE         0.000000        0.000000
+10                            CH2O         0.000000        0.000000
+11                             SCC         0.000000        0.000000
+12                             FAF         0.000000        0.000000
+13                             TUE         0.000000        0.000000
+14                            CALC         0.000000        0.000000
+15                          MTRANS         0.000000        0.000000
+
+
+Decision tree - Gini optimized: 
+                           feature  importance_mean  importance_std
+3                           Weight         0.722931        0.006917
+2                           Height         0.304019        0.018651
+0                           Gender         0.168794        0.008135
+1                              Age         0.076123        0.007826
+14                            CALC         0.025532        0.004584
+5                             FAVC         0.011820        0.002114
+12                             FAF         0.008038        0.003841
+6                             FCVC         0.003310        0.001891
+11                             SCC         0.000000        0.000000
+4   family_history_with_overweight         0.000000        0.000000
+8                             CAEC         0.000000        0.000000
+9                            SMOKE         0.000000        0.000000
+13                             TUE         0.000000        0.000000
+10                            CH2O         0.000000        0.000000
+15                          MTRANS         0.000000        0.000000
+7                              NCP        -0.001891        0.000946
+
+
+Decision tree - Entropy optimized: 
+                           feature  importance_mean  importance_std
+3                           Weight         0.722931        0.006917
+2                           Height         0.304019        0.018651
+0                           Gender         0.168794        0.008135
+1                              Age         0.076123        0.007826
+14                            CALC         0.025532        0.004584
+5                             FAVC         0.011820        0.002114
+12                             FAF         0.008038        0.003841
+6                             FCVC         0.003310        0.001891
+11                             SCC         0.000000        0.000000
+4   family_history_with_overweight         0.000000        0.000000
+8                             CAEC         0.000000        0.000000
+9                            SMOKE         0.000000        0.000000
+13                             TUE         0.000000        0.000000
+10                            CH2O         0.000000        0.000000
+15                          MTRANS         0.000000        0.000000
+7                              NCP        -0.001891        0.000946
+
+
+Gradient Boosting: 
+                           feature  importance_mean  importance_std
+3                           Weight         0.686052        0.014058
+2                           Height         0.149882        0.006786
+6                             FCVC         0.117258        0.008135
+0                           Gender         0.078014        0.011189
+10                            CH2O         0.019385        0.002757
+1                              Age         0.013239        0.004122
+12                             FAF         0.011820        0.003956
+13                             TUE         0.011348        0.001769
+5                             FAVC         0.010402        0.002411
+7                              NCP         0.007092        0.003343
+11                             SCC         0.004728        0.000000
+8                             CAEC         0.004255        0.001769
+15                          MTRANS         0.003783        0.002411
+4   family_history_with_overweight         0.002364        0.001495
+14                            CALC         0.001891        0.003474
+9                            SMOKE         0.001418        0.001158
+
+
+Categorical Conversions Dataset Features Types & shape: 
+Timestamp                      str
+Plant_ID                     int64
+Soil_Moisture              float64
+Ambient_Temperature        float64
+Soil_Temperature           float64
+Humidity                   float64
+Light_Intensity            float64
+Soil_pH                    float64
+Nitrogen_Level             float64
+Phosphorus_Level           float64
+Potassium_Level            float64
+Chlorophyll_Content        float64
+Electrochemical_Signal     float64
+Plant_Health_Status       category
+dtype: object, (1200, 14)
+
+
+
+
+Plant Health Dataset
+
+
+
+                       Timestamp  ...  Plant_Health_Status
+0     2024-10-03 10:54:53.407995  ...                  0.0
+1     2024-10-03 16:54:53.407995  ...                  0.0
+2     2024-10-03 22:54:53.407995  ...                  0.0
+3     2024-10-04 04:54:53.407995  ...                  0.0
+4     2024-10-04 10:54:53.407995  ...                  0.0
+...                          ...  ...                  ...
+1195  2024-11-01 04:54:53.493508  ...                  1.0
+1196  2024-11-01 10:54:53.493508  ...                  0.0
+1197  2024-11-01 16:54:53.493508  ...                  1.0
+1198  2024-11-01 22:54:53.493508  ...                  2.0
+1199  2024-11-02 04:54:53.493508  ...                  1.0
+
+[1200 rows x 14 columns]
+      Plant_ID  Soil_Moisture  ...  Chlorophyll_Content  Electrochemical_Signal
+0          1.0      27.521109  ...            35.703007                0.941402
+1          1.0      14.835567  ...            27.993296                0.164899
+2          1.0      17.086363  ...            43.646309                1.081728
+3          1.0      15.336156  ...            37.838097                1.186088
+4          1.0      39.822216  ...            48.265812                1.609805
+...        ...            ...  ...                  ...                     ...
+1195      10.0      29.665781  ...            24.273224                0.714553
+1196      10.0      15.490782  ...            30.930676                1.448029
+1197      10.0      23.495724  ...            38.324486                0.880019
+1198      10.0      30.971676  ...            46.027527                0.344597
+1199      10.0      24.406357  ...            41.977097                0.047541
+
+[1200 rows x 12 columns] 0       0.0
+1       0.0
+2       0.0
+3       0.0
+4       0.0
+       ... 
+1195    1.0
+1196    0.0
+1197    1.0
+1198    2.0
+1199    1.0
+Name: Plant_Health_Status, Length: 1200, dtype: float32
+                        Plant_ID  ...  Electrochemical_Signal
+Plant_ID                1.000000  ...               -0.005156
+Soil_Moisture          -0.034321  ...               -0.010556
+Ambient_Temperature    -0.029856  ...                0.007278
+Soil_Temperature        0.023195  ...               -0.023506
+Humidity               -0.004697  ...                0.007398
+Light_Intensity         0.008830  ...               -0.003094
+Soil_pH                 0.046939  ...               -0.021791
+Nitrogen_Level         -0.020165  ...               -0.003875
+Phosphorus_Level       -0.011265  ...               -0.010935
+Potassium_Level         0.016812  ...               -0.013052
+Chlorophyll_Content    -0.008191  ...                0.025483
+Electrochemical_Signal -0.005156  ...                1.000000
+
+[12 rows x 12 columns]
+
+
+Plat health Model Testing
+
+
+
+Random Forest model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 1. 0. 1. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 1. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 1. 1. 1. 1. 1. 1. 0. 1. 1. 2. 1. 0. 0. 0. 1. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Random Forest: 1.00
+
+
+Classification Report for Random Forest:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.99      0.99        85
+         1.0       0.99      1.00      0.99        90
+         2.0       1.00      1.00      1.00        65
+
+    accuracy                           1.00       240
+   macro avg       1.00      1.00      1.00       240
+weighted avg       1.00      1.00      1.00       240
+
+
+Random Forest optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 1. 0. 1. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 1. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 1. 1. 1. 1. 1. 1. 0. 1. 1. 2. 1. 0. 0. 0. 1. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Random Forest optimized: 1.00
+
+
+Classification Report for Random Forest optimized:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.99      0.99        85
+         1.0       0.99      1.00      0.99        90
+         2.0       1.00      1.00      1.00        65
+
+    accuracy                           1.00       240
+   macro avg       1.00      1.00      1.00       240
+weighted avg       1.00      1.00      1.00       240
+
+
+Support Vector Machine (One Vs One) model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 1. 1. 0. 0. 1. 1. 2. 1. 1. 1. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 0. 1. 0. 1. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 2. 0. 0. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 0. 1. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 0. 2. 0. 0. 2. 0. 1. 2. 2. 0. 1. 2. 0. 1. 1. 0. 0. 2. 0. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 0. 1. 2.
+ 2. 2. 1. 0. 2. 1. 0. 1. 0. 0. 2. 1. 2. 1. 1. 0. 1. 0. 0. 2. 0. 0. 1. 2.
+ 0. 2. 2. 1. 1. 0. 0. 1. 1. 1. 2. 2. 2. 1. 1. 0. 0. 1. 1. 1. 0. 0. 0. 0.
+ 1. 0. 0. 2. 1. 2. 1. 2. 2. 1. 0. 2. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 0. 2. 0. 0. 1. 2. 1. 2. 2. 0. 0. 0. 1.]
+
+
+Accuracy for Support Vector Machine (One Vs One): 0.84
+
+
+Classification Report for Support Vector Machine (One Vs One):
+               precision    recall  f1-score   support
+
+         0.0       0.84      0.94      0.89        85
+         1.0       0.83      0.76      0.79        90
+         2.0       0.84      0.82      0.83        65
+
+    accuracy                           0.84       240
+   macro avg       0.84      0.84      0.84       240
+weighted avg       0.84      0.84      0.84       240
+
+
+Support Vector Machine (One Vs All) model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 1. 1. 0. 0. 1. 1. 2. 1. 1. 1. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 0. 1. 0. 1. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 2. 0. 0. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 0. 1. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 0. 2. 0. 0. 2. 0. 1. 2. 2. 0. 1. 2. 0. 1. 1. 0. 0. 2. 0. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 0. 1. 2.
+ 2. 2. 1. 0. 2. 1. 0. 1. 0. 0. 2. 1. 2. 1. 1. 0. 1. 0. 0. 2. 0. 0. 1. 2.
+ 0. 2. 2. 1. 1. 0. 0. 1. 1. 1. 2. 2. 2. 1. 1. 0. 0. 1. 1. 1. 0. 0. 0. 0.
+ 1. 0. 0. 2. 1. 2. 1. 2. 2. 1. 0. 2. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 0. 2. 0. 0. 1. 2. 1. 2. 2. 0. 0. 0. 1.]
+
+
+Accuracy for Support Vector Machine (One Vs All): 0.84
+
+
+Classification Report for Support Vector Machine (One Vs All):
+               precision    recall  f1-score   support
+
+         0.0       0.84      0.94      0.89        85
+         1.0       0.83      0.76      0.79        90
+         2.0       0.84      0.82      0.83        65
+
+    accuracy                           0.84       240
+   macro avg       0.84      0.84      0.84       240
+weighted avg       0.84      0.84      0.84       240
+
+
+Decision tree - Gini model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 0. 0. 1. 2. 0. 0. 0. 1. 0. 2. 0. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 0. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 0. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 0. 1. 1. 1. 1. 1. 0. 0. 1. 2. 1. 0. 0. 0. 0. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Gini: 0.97
+
+
+Classification Report for Decision tree - Gini:
+               precision    recall  f1-score   support
+
+         0.0       0.92      0.99      0.95        85
+         1.0       0.99      0.92      0.95        90
+         2.0       1.00      1.00      1.00        65
+
+    accuracy                           0.97       240
+   macro avg       0.97      0.97      0.97       240
+weighted avg       0.97      0.97      0.97       240
+
+
+Decision tree - Entropy model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 0. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Entropy: 0.97
+
+
+Classification Report for Decision tree - Entropy:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.99      0.99        85
+         1.0       0.99      0.92      0.95        90
+         2.0       0.90      1.00      0.95        65
+
+    accuracy                           0.97       240
+   macro avg       0.96      0.97      0.97       240
+weighted avg       0.97      0.97      0.97       240
+
+
+Decision tree - Gini optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 1. 0. 1. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 1. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 1. 1. 1. 1. 1. 1. 0. 1. 1. 2. 1. 0. 0. 0. 1. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Gini optimized: 1.00
+
+
+Classification Report for Decision tree - Gini optimized:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.99      0.99        85
+         1.0       0.99      1.00      0.99        90
+         2.0       1.00      1.00      1.00        65
+
+    accuracy                           1.00       240
+   macro avg       1.00      1.00      1.00       240
+weighted avg       1.00      1.00      1.00       240
+
+
+Decision tree - Entropy optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 1. 0. 1. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 1. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 1. 1. 1. 1. 1. 1. 0. 1. 1. 2. 1. 0. 0. 0. 1. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Entropy optimized: 1.00
+
+
+Classification Report for Decision tree - Entropy optimized:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.99      0.99        85
+         1.0       0.99      1.00      0.99        90
+         2.0       1.00      1.00      1.00        65
+
+    accuracy                           1.00       240
+   macro avg       1.00      1.00      1.00       240
+weighted avg       1.00      1.00      1.00       240
+
+
+Gradient Boosting model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 1. 0. 1. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 1. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 1. 1. 1. 1. 1. 1. 0. 1. 1. 2. 1. 0. 0. 0. 1. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Gradient Boosting: 1.00
+
+
+Classification Report for Gradient Boosting:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.99      0.99        85
+         1.0       0.99      1.00      0.99        90
+         2.0       1.00      1.00      1.00        65
+
+    accuracy                           1.00       240
+   macro avg       1.00      1.00      1.00       240
+weighted avg       1.00      1.00      1.00       240
+
+
+Gradient Boosting - Optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 0. 2.
+ 2. 2. 0. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 0. 2.
+ 1. 1. 0. 0. 1. 0. 1. 2. 0. 0. 0. 1. 0. 2. 1. 1. 0. 0. 0. 0. 0. 2. 0. 0.
+ 1. 0. 2. 0. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 0.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 1. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 0. 0. 1. 0. 0.
+ 1. 0. 1. 2. 1. 1. 1. 2. 1. 1. 1. 1. 1. 1. 0. 1. 1. 2. 1. 0. 0. 0. 1. 0.
+ 0. 1. 0. 0. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Gradient Boosting - Optimized: 1.00
+
+
+Classification Report for Gradient Boosting - Optimized:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.99      0.99        85
+         1.0       0.99      1.00      0.99        90
+         2.0       1.00      1.00      1.00        65
+
+    accuracy                           1.00       240
+   macro avg       1.00      1.00      1.00       240
+weighted avg       1.00      1.00      1.00       240
+
+
+Accuracy Ranking:
+                            Model_name  Accuracy
+0                        Random Forest  0.995833
+1              Random Forest optimized  0.995833
+9        Gradient Boosting - Optimized  0.995833
+8                    Gradient Boosting  0.995833
+7    Decision tree - Entropy optimized  0.995833
+6       Decision tree - Gini optimized  0.995833
+4                 Decision tree - Gini  0.966667
+5              Decision tree - Entropy  0.966667
+2  Support Vector Machine (One Vs One)  0.837500
+3  Support Vector Machine (One Vs All)  0.837500
+
+Random Forest: 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture           0.5750        0.025954
+7           Nitrogen_Level           0.1275        0.008975
+2      Ambient_Temperature           0.0000        0.000000
+0                 Plant_ID           0.0000        0.000000
+3         Soil_Temperature           0.0000        0.000000
+4                 Humidity           0.0000        0.000000
+5          Light_Intensity           0.0000        0.000000
+6                  Soil_pH           0.0000        0.000000
+8         Phosphorus_Level           0.0000        0.000000
+9          Potassium_Level           0.0000        0.000000
+10     Chlorophyll_Content           0.0000        0.000000
+11  Electrochemical_Signal           0.0000        0.000000
+
+
+Random Forest optimized: 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture           0.5750        0.025954
+7           Nitrogen_Level           0.1275        0.008975
+2      Ambient_Temperature           0.0000        0.000000
+0                 Plant_ID           0.0000        0.000000
+3         Soil_Temperature           0.0000        0.000000
+4                 Humidity           0.0000        0.000000
+5          Light_Intensity           0.0000        0.000000
+6                  Soil_pH           0.0000        0.000000
+8         Phosphorus_Level           0.0000        0.000000
+9          Potassium_Level           0.0000        0.000000
+10     Chlorophyll_Content           0.0000        0.000000
+11  Electrochemical_Signal           0.0000        0.000000
+
+
+Support Vector Machine (One Vs One): 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture         0.456667        0.030573
+7           Nitrogen_Level         0.070000        0.012191
+0                 Plant_ID         0.007500        0.008079
+11  Electrochemical_Signal         0.005000        0.006667
+6                  Soil_pH         0.002500        0.006236
+10     Chlorophyll_Content        -0.002500        0.009354
+9          Potassium_Level        -0.003333        0.011902
+5          Light_Intensity        -0.003333        0.011607
+4                 Humidity        -0.003333        0.017361
+8         Phosphorus_Level        -0.005833        0.009718
+3         Soil_Temperature        -0.008333        0.009129
+2      Ambient_Temperature        -0.020833        0.009501
+
+
+Support Vector Machine (One Vs All): 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture         0.456667        0.030573
+7           Nitrogen_Level         0.070000        0.012191
+0                 Plant_ID         0.007500        0.008079
+11  Electrochemical_Signal         0.005000        0.006667
+6                  Soil_pH         0.002500        0.006236
+10     Chlorophyll_Content        -0.002500        0.009354
+9          Potassium_Level        -0.003333        0.011902
+5          Light_Intensity        -0.003333        0.011607
+4                 Humidity        -0.003333        0.017361
+8         Phosphorus_Level        -0.005833        0.009718
+3         Soil_Temperature        -0.008333        0.009129
+2      Ambient_Temperature        -0.020833        0.009501
+
+
+Decision tree - Gini: 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture         0.558333        0.030957
+7           Nitrogen_Level         0.096667        0.009280
+2      Ambient_Temperature         0.000000        0.000000
+0                 Plant_ID         0.000000        0.000000
+3         Soil_Temperature         0.000000        0.000000
+4                 Humidity         0.000000        0.000000
+5          Light_Intensity         0.000000        0.000000
+6                  Soil_pH         0.000000        0.000000
+8         Phosphorus_Level         0.000000        0.000000
+9          Potassium_Level         0.000000        0.000000
+10     Chlorophyll_Content         0.000000        0.000000
+11  Electrochemical_Signal         0.000000        0.000000
+
+
+Decision tree - Entropy: 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture         0.575000        0.026615
+7           Nitrogen_Level         0.073333        0.009718
+2      Ambient_Temperature         0.000000        0.000000
+0                 Plant_ID         0.000000        0.000000
+3         Soil_Temperature         0.000000        0.000000
+4                 Humidity         0.000000        0.000000
+5          Light_Intensity         0.000000        0.000000
+6                  Soil_pH         0.000000        0.000000
+8         Phosphorus_Level         0.000000        0.000000
+9          Potassium_Level         0.000000        0.000000
+10     Chlorophyll_Content         0.000000        0.000000
+11  Electrochemical_Signal         0.000000        0.000000
+
+
+Decision tree - Gini optimized: 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture         0.578333        0.024353
+7           Nitrogen_Level         0.127500        0.008975
+2      Ambient_Temperature         0.000000        0.000000
+0                 Plant_ID         0.000000        0.000000
+3         Soil_Temperature         0.000000        0.000000
+4                 Humidity         0.000000        0.000000
+5          Light_Intensity         0.000000        0.000000
+6                  Soil_pH         0.000000        0.000000
+8         Phosphorus_Level         0.000000        0.000000
+9          Potassium_Level         0.000000        0.000000
+10     Chlorophyll_Content         0.000000        0.000000
+11  Electrochemical_Signal         0.000000        0.000000
+
+
+Decision tree - Entropy optimized: 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture         0.578333        0.024353
+7           Nitrogen_Level         0.127500        0.008975
+2      Ambient_Temperature         0.000000        0.000000
+0                 Plant_ID         0.000000        0.000000
+3         Soil_Temperature         0.000000        0.000000
+4                 Humidity         0.000000        0.000000
+5          Light_Intensity         0.000000        0.000000
+6                  Soil_pH         0.000000        0.000000
+8         Phosphorus_Level         0.000000        0.000000
+9          Potassium_Level         0.000000        0.000000
+10     Chlorophyll_Content         0.000000        0.000000
+11  Electrochemical_Signal         0.000000        0.000000
+
+
+Gradient Boosting: 
+                   feature  importance_mean  importance_std
+1            Soil_Moisture         0.576667        0.025359
+7           Nitrogen_Level         0.127500        0.008975
+2      Ambient_Temperature         0.000000        0.000000
+0                 Plant_ID         0.000000        0.000000
+3         Soil_Temperature         0.000000        0.000000
+4                 Humidity         0.000000        0.000000
+5          Light_Intensity         0.000000        0.000000
+6                  Soil_pH         0.000000        0.000000
+8         Phosphorus_Level         0.000000        0.000000
+9          Potassium_Level         0.000000        0.000000
+10     Chlorophyll_Content         0.000000        0.000000
+11  Electrochemical_Signal         0.000000        0.000000
+
