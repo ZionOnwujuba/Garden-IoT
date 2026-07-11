@@ -1135,6 +1135,49 @@ model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, 'Obesity
 
 "Plant health data"
 
+"""
+Dataset from Plant Health Prediction with ML 
+(https://www.kaggle.com/code/sulaniishara/plant-health-prediction-with-ml/input) by Sulani Ishara
+
+From the author: 
+    "This file, "plant_health_data.csv", contains biosensor data related to plant health monitoring. 
+    It includes timestamped measurements of environmental and physiological parameters critical to 
+    assessing plant health, such as soil moisture, temperature, humidity, light intensity, 
+    nutrient levels, and plant stress signals."
+    "The data is structured to support machine learning models aimed at predicting plant health status 
+    and detecting stress conditions. Each row represents a specific reading for a plant at a given time, 
+    with various features capturing essential biosensor metrics. The file can be used for applications 
+    in precision agriculture, environmental monitoring, and research."
+"
+The dataset includes the following key features:
+
+    Plant Identification:
+        Plant_ID: Unique identifier for each plant in the dataset.
+
+    Soil Properties:
+        Soil_Moisture (%): Indicates water content in the soil.
+        Soil_Temperature (°C): Represents temperature near the plant roots.
+        Soil_pH: Reflects the acidity or alkalinity of the soil.
+        Nitrogen_Level (mg/kg), Phosphorus_Level (mg/kg), and Potassium_Level (mg/kg): Measure 
+            nutrient levels critical for plant growth and health.
+
+    Environmental Conditions:
+        Ambient_Temperature (°C): Temperature surrounding the plant.
+        Humidity (%): Air humidity levels.
+        Light_Intensity (Lux): Exposure to light, crucial for photosynthesis.
+
+    Plant Health Indicators:
+        Chlorophyll_Content (mg/m²): Reflects photosynthetic activity.
+        Electrochemical_Signal (mV): Represents stress signals due to environmental or internal factors.
+
+    Target Variable:
+        Plant_Health_Status: A categorical label indicating the plant's overall health. It has three classes:
+            Healthy: Optimal plant conditions.
+            Moderate Stress: Minor deviations from ideal conditions.
+            High Stress: Severe stress requiring immediate intervention.
+
+"""
+
 dataset = pd.read_csv(r"/mnt/c/Users/Ziono/OneDrive/Documents/Garden IoT project/Garden IoT/pytorch/data/plant_health_data(1).csv")
 # Convert str data type values to category
 convert_cols = ["Plant_Health_Status"]
