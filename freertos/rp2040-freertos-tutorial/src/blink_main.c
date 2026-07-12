@@ -4,7 +4,7 @@
 #include "pico/stdlib.h"
 #include "pico/cyw43_arch.h"
 
-// Remote change added
+
 void led_task(void *pvParameters) // The task function must return void and take a single void * parameter.
 {   
     while (1){
