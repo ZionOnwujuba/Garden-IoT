@@ -73,7 +73,8 @@ NObeyesdad (Categorical)
 """
 
 # Load data from CSV file
-dataset = pd.read_csv(r"/mnt/c/Users/Ziono/OneDrive/Documents/Garden IoT project/Garden IoT/pytorch/data/ObesityLevelsEstimationDataset.csv")
+# dataset = pd.read_csv(r"/mnt/c/Users/Ziono/OneDrive/Documents/Garden IoT project/Garden IoT/pytorch/data/ObesityLevelsEstimationDataset.csv") # Windows path
+dataset = pd.read_csv(r"/home/zoino/Documents/Projects/Garden-IoT/pytorch/data/ObesityLevelsEstimationDataset.csv") # Linux Path
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -1193,7 +1194,8 @@ The dataset includes the following key features:
 
 """
 
-dataset = pd.read_csv(r"/mnt/c/Users/Ziono/OneDrive/Documents/Garden IoT project/Garden IoT/pytorch/data/plant_health_data(1).csv")
+# dataset = pd.read_csv(r"/mnt/c/Users/Ziono/OneDrive/Documents/Garden IoT project/Garden IoT/pytorch/data/plant_health_data(1).csv") # Windows path
+dataset = pd.read_csv(r"/home/zoino/Documents/Projects/Garden-IoT/pytorch/data/plant_health_data(1).csv")
 # Convert str data type values to category
 convert_cols = ["Plant_Health_Status"]
 dataset[convert_cols] = dataset[convert_cols].apply(lambda x: x.astype('category'))
