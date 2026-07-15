@@ -71,10 +71,11 @@ void led_task(void *pvParameters) // The task function must return void and take
 void button_task(void *pvParameters){
     gpio_init(20); // Push button connected to pin 20
     gpio_set_dir(20, GPIO_IN);
+    gpio_pull_up(20);
     // Task polls to see if button is pressed
     while(1){
         // If button is pressed, increment semaphore
-        if(gpio_get(20) != 0){
+        if(gpio_get(20) == 0){
             xSemaphoreGive(count);
             vTaskDelay(pdMS_TO_TICKS(20));
         } 
