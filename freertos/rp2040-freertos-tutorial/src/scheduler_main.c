@@ -27,7 +27,7 @@ Scheduling Algorithm
 task
     - A task uses the registers, RAM, and ROM of a microcontroller making up the 
     "Task Execuction Context"
-    - A task does not know when it will be suspeneded anad does not know when it happens
+    - A task does not know when it will be suspeneded and does not know when it happens
     - When a task is suspended the kernel saves its context and restores it when the task
     is brought back. This is called "Context Switching" and FreeRTOS handles it
 - Task States
@@ -44,8 +44,21 @@ task
     - Lower number = lower priority (0 is lowest)
     - FreeRTOS scheduler will always ensure that the highest
     priority task enters running state
-    - Equal priority tasks will be entered ina nd out of running 
+    - Equal priority tasks will be entered in a nd out of running 
     state in round robin
+
+- Higher Priority Tasks: 
+    - The scheduler guarantees that the highest-priority task in the Ready state is 
+    always the one running. It will not stop running for another task of the same priority unless it 
+    calls a blocking function (like vTaskDelay() or reading a queue) or is preempted by a higher-priority task.
+- Equal Priority Tasks: 
+    - Time-slicing only applies when multiple tasks share the exact same highest priority. 
+    In this case, tasks take turns using the CPU in a round-robin fashion.
+Time Slice Duration: 
+    - The length of a time slice for equal-priority tasks is determined by the system tick rate, 
+    defined by the macro configTICK_RATE_HZ. If your tick rate is set to 1000 Hz (the default in many FreeRTOS 
+    projects), the time slice is 1 ms.
+        - The formula for the time slice duration in milliseconds is: (1000/configTICK_RATE_HZ) ms
 */
 
 void task1(void *pvParameters) 

@@ -15,7 +15,8 @@ target_link_libraries(${ProjectName}
     FreeRTOS-Kernel-Heap4
     pico_cyw43_arch_none # We use _none because you are just blinking an LED. 
                          # Use pico_cyw43_arch_lwip_threadsafe_background later 
-                         # if you eventually add actual Wi-Fi networking with FreeRTOS 
+                         # if you eventually add actual Wi-Fi networking with FreeRTOS
+    pico_multicore
     )
 
 pico_enable_stdio_usb(rp2040-freertos-tutorial 1) # Enable usb output
