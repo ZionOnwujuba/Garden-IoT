@@ -8,6 +8,7 @@ add_library(peripheral_drivers STATIC
     peripheral-libs/rs485.c
     peripheral-libs/rs485.h
     constants.h
+    gini_model.h
 )
 
 
