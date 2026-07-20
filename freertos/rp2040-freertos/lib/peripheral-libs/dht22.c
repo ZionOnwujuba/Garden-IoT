@@ -8,19 +8,13 @@
 #include <math.h>
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
+#include "dht22.h"
+#include "constants.h"
 
 #ifdef PICO_DEFAULT_LED_PIN
 #define LED_PIN PICO_DEFAULT_LED_PIN
 #endif
 
-const uint DHT_PIN = 15;
-const uint MAX_TIMINGS = 85;
-
-
-typedef struct {
-    float humidity;
-    float temperature;
-} dht_data;
 
 
   
@@ -47,13 +41,13 @@ bool read_from_dht(dht_data *result) {
 
     // Loop to read high/low transitions from the DHT22
         /*
-The sensor transmits 40 bits (5 bytes total) of data. 
-Every single bit begins with a 50 μs low pulse. 
-The length of the subsequent high pulse determines 
-whether the bit is a 0 or a 1:
-    Bit '0': High pulse lasts 26–28 μs.
-    Bit '1': High pulse lasts 70 μs
-*/
+    The sensor transmits 40 bits (5 bytes total) of data. 
+    Every single bit begins with a 50 μs low pulse. 
+    The length of the subsequent high pulse determines 
+    whether the bit is a 0 or a 1:
+        Bit '0': High pulse lasts 26–28 μs.
+        Bit '1': High pulse lasts 70 μs
+    */
     for (uint i = 0; i < MAX_TIMINGS; i++) {
         uint counter = 0;
         while (gpio_get(DHT_PIN) == last_state) {
@@ -76,16 +70,16 @@ whether the bit is a 0 or a 1:
         }
     }
     /*
-The 5 bytes (data[0] to data[4]) hold the raw information:
-    Bytes 0 & 1: Relative Humidity (multiplied by 10).
-    Bytes 2 & 3: Temperature (multiplied by 10).
-    Byte 4: Checksum.
-        Checksum Validation: 
-            The code adds the first 4 bytes together. 
-            The lowest 8 bits of this sum must match the
-             5th byte (checksum). If they do not match, 
-             the data is corrupted and discarded.
-*/
+    The 5 bytes (data[0] to data[4]) hold the raw information:
+        Bytes 0 & 1: Relative Humidity (multiplied by 10).
+        Bytes 2 & 3: Temperature (multiplied by 10).
+        Byte 4: Checksum.
+            Checksum Validation: 
+                The code adds the first 4 bytes together. 
+                The lowest 8 bits of this sum must match the
+                5th byte (checksum). If they do not match, 
+                the data is corrupted and discarded.
+    */
 
     // 3. Verify checksum and parse raw data array
     if ((j >= 40) && (data[4] == ((data[0] + data[1] + data[2] + data[3]) & 0xFF))) {
@@ -112,9 +106,10 @@ The 5 bytes (data[0] to data[4]) hold the raw information:
     
     return false; // Checksum error or bad transmission timeout
 }
-
+/*
 int main() {
     stdio_init_all();
+    /
     printf("DHT22 Sensor Initialization\n");
 
     // Initialize chosen GPIO pin
@@ -135,3 +130,4 @@ int main() {
         sleep_ms(2000); 
     }
 }
+    */

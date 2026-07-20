@@ -20,6 +20,7 @@ target_link_libraries(${ProjectName}
     hardware_i2c
     pico_binary_info
     hardware_uart
+    peripheral_drivers
     )
 
 pico_enable_stdio_usb(rp2040-freertos 1) # Enable usb output

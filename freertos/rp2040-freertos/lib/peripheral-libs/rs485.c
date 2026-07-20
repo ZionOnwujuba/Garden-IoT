@@ -2,12 +2,10 @@
 #include "pico/stdlib.h"
 #include "hardware/uart.h"
 #include "hardware/gpio.h"
+#include "rs485.h"
+#include "constants.h"
 
-// Hardware Configuration
-#define UART_ID         uart0
-#define BAUDRATE        9600
-#define UART_TX_PIN     12
-#define UART_RX_PIN     13
+
 /*
 1. The Request Packet Sequence (Pico W → Sensor)
 The 8 bytes you send (Com[8]) ask the sensor to deliver the data:
@@ -53,38 +51,45 @@ How Your Code Validates This Sequence
 */
 // Global Variables
 uint8_t Com[8] = { 0x01, 0x03, 0x00, 0x00, 0x00, 0x04, 0x44, 0x09 };
-float tem = 0.0f;
-float hum = 0.0f;
-float ph = 0.0f;
+
+
 
 // Forward Declarations
-void readHumiturePH(void);
-uint8_t readN(uint8_t *buf, size_t len);
-unsigned int CRC16_2(unsigned char *buf, int len);
 
+/*
 int main() {
     // Initialize standard I/O (allows printf over USB serial to your PC)
     stdio_init_all();
 
     // Initialize UART0 at 9600 baud
-    uart_init(UART_ID, BAUDRATE);
-    gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
-    gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
-    uart_set_format(UART_ID, 8, 1, UART_PARITY_NONE); // 8N1 standard Modbus format
+    uart_init(UART_ID_RS485, BAUDRATE_RS485);
+    gpio_set_function(UART_TX_PIN_RS485, GPIO_FUNC_UART);
+    gpio_set_function(UART_RX_PIN_RS485, GPIO_FUNC_UART);
+    uart_set_format(UART_ID_RS485, 8, 1, UART_PARITY_NONE); // 8N1 standard Modbus format
 
     // Pause briefly to give the PC serial monitor time to catch up on boot
     sleep_ms(2000);
 
     // Application Loop
     while (true) {
-        readHumiturePH();
-        float fahrenheit = (tem * 9 / 5) + 32;
-        printf("TEM = %.1f °C (%.1f °F)  HUM = %.1f %%RH  PH = %.1f\n", tem, fahrenheit, hum, ph);
+        rs485_data rsdata;
+        readHumiturePH(&rsdata);
+        float fahrenheit = (rsdata.tem * 9 / 5) + 32;
+        printf("TEM = %.1f °C (%.1f °F)  HUM = %.1f %%RH  PH = %.1f\n", rsdata.tem, fahrenheit, rsdata.hem, rsdata.ph);
         sleep_ms(1000); // delay(1000)
     }
 }
+*/
 
-void readHumiturePH(void) {
+void rs485_init(void){
+    // Initialize UART0 at 9600 baud
+    uart_init(UART_ID_RS485, BAUDRATE_RS485);
+    gpio_set_function(UART_TX_PIN_RS485, GPIO_FUNC_UART);
+    gpio_set_function(UART_RX_PIN_RS485, GPIO_FUNC_UART);
+    uart_set_format(UART_ID_RS485, 8, 1, UART_PARITY_NONE); // 8N1 standard Modbus format
+}
+
+void readHumiturePH(rs485_data *result) {
     uint8_t Data[16] = { 0 }; // Sized with safety padding
     uint8_t ch = 0;
     bool flag = true;
@@ -93,18 +98,18 @@ void readHumiturePH(void) {
         sleep_ms(100); // delay(100)
 
         // Clear any stale remnants out of the RX hardware buffer before sending
-        while (uart_is_readable(UART_ID)) {
-            uart_getc(UART_ID); 
+        while (uart_is_readable(UART_ID_RS485)) {
+            uart_getc(UART_ID_RS485); 
         }
 
         // Send out the 8-byte Modbus command
         // The hardware shield handles the auto-switching transmission lines instantly
         for (int i = 0; i < 8; i++) {
-            uart_putc(UART_ID, Com[i]);
+            uart_putc(UART_ID_RS485, Com[i]);
         }
         
         // Block until all characters leave the Pico's internal hardware transmission FIFO
-        uart_tx_wait_blocking(UART_ID);
+        uart_tx_wait_blocking(UART_ID_RS485);
 
         // Give the sensor a small window to receive the command and begin talking back
         sleep_ms(20); 
@@ -121,9 +126,9 @@ void readHumiturePH(void) {
                                 Data[2] = ch;
                                 if (readN(&Data[3], 10) == 10) { // 8 data bytes + 2 CRC bytes
                                     if (CRC16_2(Data, 11) == (Data[11] * 256 + Data[12])) {
-                                        hum = (Data[3] * 256 + Data[4]) / 10.00f;
-                                        tem = (Data[5] * 256 + Data[6]) / 10.00f;
-                                        ph  = (Data[9] * 256 + Data[10]) / 10.00f;
+                                        result->hem = (Data[3] * 256 + Data[4]) / 10.00f;
+                                        result->tem = (Data[5] * 256 + Data[6]) / 10.00f;
+                                        result->ph  = (Data[9] * 256 + Data[10]) / 10.00f;
                                         flag = false; // Valid packet parsed, break out of loop
                                     }
                                 }
@@ -146,8 +151,8 @@ uint8_t readN(uint8_t *buf, size_t len) {
     absolute_time_t start_time = get_absolute_time();
 
     while (left) {
-        if (uart_is_readable(UART_ID)) {
-            buffer[offset] = uart_getc(UART_ID); 
+        if (uart_is_readable(UART_ID_RS485)) {
+            buffer[offset] = uart_getc(UART_ID_RS485); 
             offset++;
             left--;
         }
