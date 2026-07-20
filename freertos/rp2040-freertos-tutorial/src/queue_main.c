@@ -62,7 +62,15 @@ void usb_task(void *pvParameters){
     uint uIRecivedValue;
 
     while(1){
-        xQueueReceive(xQueue, &uIRecivedValue, portMAX_DELAY);
+        xQueueReceive(xQueue, // The handle of the queue where the item is being posted
+            &uIRecivedValue, // A pointer to the data you want to place on the queue. 
+            portMAX_DELAY); /* The maximum amount of time (in tick periods) the task 
+                                should block and wait if the queue is currently full. 
+                                If you pass 0, the function returns immediately if the 
+                                queue is full. If you pass portMAX_DELAY, the task 
+                                will wait indefinitely for space to become available 
+                                (provided INCLUDE_vTaskSuspend is set to 1)
+                            */
 
         if(uIRecivedValue == 1){
             printf("LED is ON! \n");

@@ -14,9 +14,11 @@ from sklearn.tree import DecisionTreeClassifier, plot_tree
 from torchmetrics import ConfusionMatrix
 from mlxtend.plotting import plot_confusion_matrix
 from tqdm.auto import tqdm
+import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
+matplotlib.use('Agg')
 
 """
 All data from the UC Irvine Machine Learning Repository 
@@ -511,9 +513,9 @@ Decision Trees select the best attributes for splits using metrics
     the root and internal nodes. Entropy measures dataset impurity, 
     guiding the tree to choose splits that reduce uncertainty.
         Gini Index: Measures the probability of misclassifying 
-        a randomly chosen element lower values are better.
+        a randomly chosen element; lower values are better.
         Entropy: Quantifies the uncertainty or impurity in a 
-        dataset higher entropy means more disorder.
+        dataset; higher entropy means more disorder.
         Information Gain: Measures the reduction in entropy achieved 
         by splitting data on an attribute higher gain is preferred.
 """
@@ -1047,7 +1049,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
     
     "Accuracy Plot"
     accuracy_list = [acc for dic in Metrics["accuracy"] for acc in dic.values()]
-    # print(accuracy_list)
+    print("Accuracy List: ",accuracy_list)
 
     accuracy_df = pd.DataFrame({
         "Model_name": plt_names,
@@ -1261,17 +1263,6 @@ sns.heatmap(co_mtx, cmap="YlGnBu", annot=True)
 plt.title("Correlation Heatmap")
 plt.show(block=True)
 
-Metrics_ph = {
-    "accuracy": [],
-    "classification_reports": {
-        "precision" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
-        "recall" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
-        "f1-score" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
-        "support" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
-    },
-    "Confusion_matrices": [],
-    "Permuation_importance": [],
-}
 
 X_train, X_test, y_train, y_test = train_test_split(input_features_ph, target_ph, test_size=0.2, random_state=42)
 
@@ -1292,54 +1283,112 @@ plt_names= ["Random Forest", "Random Forest optimized", "Support Vector Machine 
 class_names=["Healthy", "Moderate Stress", "High Stress"]
 
 print("\n\nPlant health Model Testing\n\n")
-for index, model in enumerate(model_list):
-    # Train the model
-    print(f"\n{plt_names[index]} model under test\n")
-    model_under_test = model[0]
-    model_under_test.fit(X_train, y_train)
+def train_test_populate_metrics(model_list, X_train, y_train, X_test, y_test, plt_names):
+    Metrics_ph = {
+        "accuracy": [],
+        "classification_reports": {
+            "precision" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
+            "recall" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
+            "f1-score" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
+            "support" : [["Healthy"], ["Moderate Stress"], ["High Stress"]],
+        },
+        "Confusion_matrices": [],
+        "Permuation_importance": [],
+    }
+    for index, model in enumerate(model_list):
+        # Train the model
+        print(f"\n{plt_names[index]} model under test\n")
+        model_under_test = model[0]
+        model_under_test.fit(X_train, y_train)
 
-    if model[1] is not None:
-        model_under_test = model_under_test.best_estimator_
+        if model[1] is not None:
+            model_under_test = model_under_test.best_estimator_
 
-    target_pred = model_under_test.predict(X_test)
+        target_pred = model_under_test.predict(X_test)
 
-    print(f"\nTarget Prediction: {target_pred}\n")
+        print(f"\nTarget Prediction: {target_pred}\n")
 
-    accuracy = accuracy_score(y_test, target_pred)
+        accuracy = accuracy_score(y_test, target_pred)
 
-    classification_rep = classification_report(y_test, target_pred)
+        classification_rep = classification_report(y_test, target_pred)
 
-    print(f"\nAccuracy for {plt_names[index]}: {accuracy:.2f}\n")
-    print(f"\nClassification Report for {plt_names[index]}:\n", classification_rep)
+        print(f"\nAccuracy for {plt_names[index]}: {accuracy:.2f}\n")
+        print(f"\nClassification Report for {plt_names[index]}:\n", classification_rep)
 
-    confmat = ConfusionMatrix(task="multiclass", num_classes=3)
+        confmat = ConfusionMatrix(task="multiclass", num_classes=3)
 
-    confmat_tensor = confmat(torch.from_numpy(target_pred).type(torch.float32), 
-                            torch.from_numpy(np.array(y_test)).type(torch.float32)
-    )
+        confmat_tensor = confmat(torch.from_numpy(target_pred).type(torch.float32), 
+                                torch.from_numpy(np.array(y_test)).type(torch.float32)
+        )
 
-    result = permutation_importance(
-        model[0], X_test, y_test, n_repeats=5, random_state=42, n_jobs=-1
-    )
-    importance_df = pd.DataFrame({
-        'feature': input_features_ph.columns,
-        'importance_mean': result.importances_mean,
-        'importance_std': result.importances_std
-    }).sort_values(by='importance_mean', ascending=False)
-    Metrics_ph["Permuation_importance"].append(importance_df)
-    Metrics_ph["accuracy"].append({
-        f"{plt_names[index]}": accuracy
-    })
+        result = permutation_importance(
+            model[0], X_test, y_test, n_repeats=5, random_state=42, n_jobs=-1
+        )
+        importance_df = pd.DataFrame({
+            'feature': input_features_ph.columns,
+            'importance_mean': result.importances_mean,
+            'importance_std': result.importances_std
+        }).sort_values(by='importance_mean', ascending=False)
+        Metrics_ph["Permuation_importance"].append(importance_df)
+        Metrics_ph["accuracy"].append({
+            f"{plt_names[index]}": accuracy
+        })
 
-    classification_rep = classification_report(y_test, target_pred, output_dict=True)
-    for i in range(len(Metrics_ph["classification_reports"]["precision"])):
-        Metrics_ph["classification_reports"]["precision"][i].append(classification_rep[f"{i}.0"]["precision"])
-        Metrics_ph["classification_reports"]["recall"][i].append(classification_rep[f"{i}.0"]["recall"])
-        Metrics_ph["classification_reports"]["f1-score"][i].append(classification_rep[f"{i}.0"]["f1-score"])
-        Metrics_ph["classification_reports"]["support"][i].append(classification_rep[f"{i}.0"]["support"])
-    # print(Metrics_ph["classification_reports"])
-    Metrics_ph["Confusion_matrices"].append(confmat_tensor)
+        classification_rep = classification_report(y_test, target_pred, output_dict=True)
+        for i in range(len(Metrics_ph["classification_reports"]["precision"])):
+            Metrics_ph["classification_reports"]["precision"][i].append(classification_rep[f"{i}.0"]["precision"])
+            Metrics_ph["classification_reports"]["recall"][i].append(classification_rep[f"{i}.0"]["recall"])
+            Metrics_ph["classification_reports"]["f1-score"][i].append(classification_rep[f"{i}.0"]["f1-score"])
+            Metrics_ph["classification_reports"]["support"][i].append(classification_rep[f"{i}.0"]["support"])
+        # print(Metrics_ph["classification_reports"])
+        Metrics_ph["Confusion_matrices"].append(confmat_tensor)
+    return Metrics_ph
 
-
-
+Metrics_ph = train_test_populate_metrics(model_list, X_train, y_train, X_test, y_test, plt_names)
 model_metric_plot_tool_comp(Metrics_ph, col_names, plt_names, class_names, 'Plant Health')
+
+
+# dataset = pd.read_csv(r"/mnt/c/Users/Ziono/OneDrive/Documents/Garden IoT project/Garden IoT/pytorch/data/plant_health_data(1).csv") # Windows path
+dataset = pd.read_csv(r"/home/zoino/Documents/Projects/Garden-IoT/pytorch/data/plant_health_data(1).csv")
+# Convert str data type values to category
+convert_cols = ["Plant_Health_Status"]
+dataset[convert_cols] = dataset[convert_cols].apply(lambda x: x.astype('category'))
+
+print("\n\n\nAltered Plant Health Dataset\n\n\n")
+# Convert categorical data to numeric data using factorize columns
+dataset[convert_cols] = dataset[convert_cols].apply(lambda x: pd.factorize(x)[0])
+
+# Convert float64 columns and int64 columns into float32  
+float64_cols = list(dataset.select_dtypes(include='float64'))
+dataset[float64_cols] = dataset[float64_cols].astype('float32')
+
+int64_cols = list(dataset.select_dtypes(include='int64'))
+dataset[int64_cols] = dataset[int64_cols].astype('float32')
+
+input_features_ph = dataset.loc[:, "Soil_Moisture":"Soil_pH"]
+target_ph = dataset.loc[:, "Plant_Health_Status"]
+print(input_features_ph, target_ph)
+
+# COnvert to tensors
+X_train, X_test, y_train, y_test = train_test_split(input_features_ph, target_ph, test_size=0.2, random_state=42)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Convert to Pytorch tensors
+X_train = torch.from_numpy(np.array(X_train)).type(torch.float32)
+y_train = torch.from_numpy(np.array(y_train)).type(torch.float32)
+X_test = torch.from_numpy(np.array(X_test)).type(torch.float32)
+
+col_names= ["Plant Health", "Random Forest", "Random Forest optimized", "Support Vector Machine (One Vs One)", "Support Vector Machine (One Vs All)", "Decision tree - Gini", "Decision tree - Entropy", "Decision tree - Gini optimized", "Decision tree - Entropy optimized", "Gradient Boosting", "Gradient Boosting - Optimized"]
+plt_names= ["Random Forest", "Random Forest optimized", "Support Vector Machine (One Vs One)", "Support Vector Machine (One Vs All)", "Decision tree - Gini", "Decision tree - Entropy", "Decision tree - Gini optimized", "Decision tree - Entropy optimized", "Gradient Boosting", "Gradient Boosting - Optimized"]
+class_names=["Healthy", "Moderate Stress", "High Stress"]
+
+print("\n\nAltered Plant health Model Testing\n\n")
+
+Metrics_ph = train_test_populate_metrics(model_list, X_train, y_train, X_test, y_test, plt_names)
+model_metric_plot_tool_comp(Metrics_ph, col_names, plt_names, class_names, 'Plant Health')
+
+# Since Decision tree - Gini optimized is consistently ties the highest and has a formula which
+# is computationally simpler than entropy, it will be chosen

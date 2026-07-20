@@ -411,13 +411,13 @@ Train Input:       Gender        Age    Height      Weight  ...       FAF       
  Length of Train input: 1688
 
 Epoch: 0 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
-Epoch: 10 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
+Epoch: 10 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
 Epoch: 20 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
 Epoch: 30 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
-Epoch: 40 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
-Epoch: 50 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+Epoch: 40 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
+Epoch: 50 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
 Epoch: 60 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
-Epoch: 70 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
+Epoch: 70 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 18.86161 | Test Acc: 0.00000
 Epoch: 80 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 17.13170 | Test Acc: 0.00000
 Epoch: 90 | Train Loss: 0.0 | Test Loss: 0.00000 | Train Acc: 15.40179 | Test Acc: 0.00000
 
@@ -435,6 +435,7 @@ Classification Report for Multivariate LSTM:
    macro avg       0.00      0.00      0.00     403.0
 weighted avg       0.00      0.00      0.00     403.0
 
+Accuracy List:  [0.9527186761229315, 0.9527186761229315, 0.8936170212765957, 0.8936170212765957, 0.6335697399527187, 0.6288416075650118, 0.9361702127659575, 0.9361702127659575, 0.9550827423167849, 0.9550827423167849, 0.0]
 
 Accuracy Ranking:
                             Model_name  Accuracy
@@ -709,7 +710,7 @@ Electrochemical_Signal -0.005156  ...                1.000000
 [12 rows x 12 columns]
 
 
-Plat health Model Testing
+Plant health Model Testing
 
 
 
@@ -1012,6 +1013,7 @@ Classification Report for Gradient Boosting - Optimized:
    macro avg       1.00      1.00      1.00       240
 weighted avg       1.00      1.00      1.00       240
 
+Accuracy List:  [0.9958333333333333, 0.9958333333333333, 0.8375, 0.8375, 0.9666666666666667, 0.9666666666666667, 0.9958333333333333, 0.9958333333333333, 0.9958333333333333, 0.9958333333333333]
 
 Accuracy Ranking:
                             Model_name  Accuracy
@@ -1168,4 +1170,445 @@ Gradient Boosting:
 9          Potassium_Level         0.000000        0.000000
 10     Chlorophyll_Content         0.000000        0.000000
 11  Electrochemical_Signal         0.000000        0.000000
+
+
+
+
+Altered Plant Health Dataset
+
+
+
+      Soil_Moisture  Ambient_Temperature  ...  Light_Intensity   Soil_pH
+0         27.521109            22.240246  ...       556.172791  5.581954
+1         14.835567            21.706764  ...       596.136719  7.135705
+2         17.086363            21.180946  ...       591.124634  5.656852
+3         15.336156            22.593302  ...       241.412476  5.584523
+4         39.822216            28.929001  ...       444.493835  5.919707
+...             ...                  ...  ...              ...       ...
+1195      29.665781            27.605286  ...       650.536865  5.715289
+1196      15.490782            22.108112  ...       768.760803  5.958957
+1197      23.495724            21.680241  ...       293.643372  7.419157
+1198      30.971676            23.019487  ...       492.952026  5.855767
+1199      24.406357            25.724606  ...       304.201569  6.122042
+
+[1200 rows x 6 columns] 0       0.0
+1       0.0
+2       0.0
+3       0.0
+4       0.0
+       ... 
+1195    1.0
+1196    0.0
+1197    1.0
+1198    2.0
+1199    1.0
+Name: Plant_Health_Status, Length: 1200, dtype: float32
+
+
+Altered Plant health Model Testing
+
+
+
+Random Forest model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 0. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 1. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 1.
+ 1. 0. 1. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 1. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 0. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Random Forest: 0.91
+
+
+Classification Report for Random Forest:
+               precision    recall  f1-score   support
+
+         0.0       0.97      0.87      0.92        85
+         1.0       0.91      0.92      0.92        90
+         2.0       0.84      0.94      0.88        65
+
+    accuracy                           0.91       240
+   macro avg       0.91      0.91      0.91       240
+weighted avg       0.91      0.91      0.91       240
+
+
+Random Forest optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 0. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Random Forest optimized: 0.92
+
+
+Classification Report for Random Forest optimized:
+               precision    recall  f1-score   support
+
+         0.0       0.99      0.87      0.93        85
+         1.0       0.94      0.92      0.93        90
+         2.0       0.83      0.98      0.90        65
+
+    accuracy                           0.92       240
+   macro avg       0.92      0.93      0.92       240
+weighted avg       0.93      0.92      0.92       240
+
+
+Support Vector Machine (One Vs One) model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 1. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 1. 1. 0. 1. 0. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 0. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 1. 0. 2. 0.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 1. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 0. 1. 0. 0. 2. 1. 1. 1. 0. 0. 1. 1.
+ 1. 2. 1. 0. 2. 2. 0. 1. 0. 0. 2. 1. 2. 1. 1. 0. 1. 1. 0. 2. 0. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 2. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 1. 0. 0. 1. 2. 1. 2. 2. 0. 0. 0. 1.]
+
+
+Accuracy for Support Vector Machine (One Vs One): 0.85
+
+
+Classification Report for Support Vector Machine (One Vs One):
+               precision    recall  f1-score   support
+
+         0.0       0.93      0.87      0.90        85
+         1.0       0.84      0.83      0.84        90
+         2.0       0.79      0.86      0.82        65
+
+    accuracy                           0.85       240
+   macro avg       0.85      0.86      0.85       240
+weighted avg       0.86      0.85      0.85       240
+
+
+Support Vector Machine (One Vs All) model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 1. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 1. 1. 0. 1. 0. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 0. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 1. 0. 2. 0.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 1. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 0. 1. 0. 0. 2. 1. 1. 1. 0. 0. 1. 1.
+ 1. 2. 1. 0. 2. 2. 0. 1. 0. 0. 2. 1. 2. 1. 1. 0. 1. 1. 0. 2. 0. 0. 1. 2.
+ 0. 2. 2. 1. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 2. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 1. 0. 0. 1. 2. 1. 2. 2. 0. 0. 0. 1.]
+
+
+Accuracy for Support Vector Machine (One Vs All): 0.85
+
+
+Classification Report for Support Vector Machine (One Vs All):
+               precision    recall  f1-score   support
+
+         0.0       0.93      0.87      0.90        85
+         1.0       0.84      0.83      0.84        90
+         2.0       0.79      0.86      0.82        65
+
+    accuracy                           0.85       240
+   macro avg       0.85      0.86      0.85       240
+weighted avg       0.86      0.85      0.85       240
+
+
+Decision tree - Gini model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 0. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 0. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 0. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 0. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Gini: 0.91
+
+
+Classification Report for Decision tree - Gini:
+               precision    recall  f1-score   support
+
+         0.0       0.95      0.87      0.91        85
+         1.0       0.94      0.92      0.93        90
+         2.0       0.82      0.94      0.88        65
+
+    accuracy                           0.91       240
+   macro avg       0.91      0.91      0.91       240
+weighted avg       0.91      0.91      0.91       240
+
+
+Decision tree - Entropy model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 0. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 0. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 0. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 0. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Entropy: 0.91
+
+
+Classification Report for Decision tree - Entropy:
+               precision    recall  f1-score   support
+
+         0.0       0.95      0.87      0.91        85
+         1.0       0.94      0.92      0.93        90
+         2.0       0.82      0.94      0.88        65
+
+    accuracy                           0.91       240
+   macro avg       0.91      0.91      0.91       240
+weighted avg       0.91      0.91      0.91       240
+
+
+Decision tree - Gini optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Gini optimized: 0.93
+
+
+Classification Report for Decision tree - Gini optimized:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.87      0.93        85
+         1.0       0.94      0.92      0.93        90
+         2.0       0.83      1.00      0.91        65
+
+    accuracy                           0.93       240
+   macro avg       0.93      0.93      0.92       240
+weighted avg       0.93      0.93      0.93       240
+
+
+Decision tree - Entropy optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 2. 2. 2.
+ 2. 2. 2. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 2. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 2. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Decision tree - Entropy optimized: 0.93
+
+
+Classification Report for Decision tree - Entropy optimized:
+               precision    recall  f1-score   support
+
+         0.0       1.00      0.87      0.93        85
+         1.0       0.94      0.92      0.93        90
+         2.0       0.83      1.00      0.91        65
+
+    accuracy                           0.93       240
+   macro avg       0.93      0.93      0.92       240
+weighted avg       0.93      0.93      0.93       240
+
+
+Gradient Boosting model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 0. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 1. 2. 2.
+ 2. 2. 1. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 1. 2. 0. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 1. 2. 1. 1. 2. 0. 1. 1. 0. 0. 0. 1. 1. 0. 2. 1.
+ 1. 0. 0. 0. 2. 2. 0. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 0. 0. 0. 1. 1. 1.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 0. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 0. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Gradient Boosting: 0.88
+
+
+Classification Report for Gradient Boosting:
+               precision    recall  f1-score   support
+
+         0.0       0.89      0.87      0.88        85
+         1.0       0.89      0.89      0.89        90
+         2.0       0.84      0.86      0.85        65
+
+    accuracy                           0.88       240
+   macro avg       0.87      0.87      0.87       240
+weighted avg       0.88      0.88      0.88       240
+
+
+Gradient Boosting - Optimized model under test
+
+
+Target Prediction: [0. 0. 1. 1. 1. 2. 0. 0. 2. 0. 0. 2. 1. 2. 2. 1. 2. 1. 1. 2. 2. 1. 2. 2.
+ 2. 2. 1. 1. 0. 2. 1. 0. 1. 1. 1. 0. 2. 0. 2. 2. 1. 1. 1. 2. 2. 1. 2. 2.
+ 1. 1. 0. 0. 2. 0. 1. 2. 0. 0. 1. 1. 0. 2. 2. 1. 0. 0. 0. 0. 0. 2. 0. 1.
+ 1. 0. 2. 2. 0. 1. 1. 0. 2. 1. 2. 2. 2. 2. 0. 0. 1. 0. 0. 0. 2. 0. 2. 1.
+ 1. 1. 2. 1. 0. 2. 0. 1. 1. 2. 1. 1. 2. 0. 1. 1. 0. 0. 2. 1. 1. 0. 2. 1.
+ 1. 0. 2. 0. 2. 2. 1. 1. 0. 0. 1. 2. 1. 1. 0. 0. 2. 1. 1. 1. 0. 1. 1. 2.
+ 2. 1. 2. 0. 2. 1. 0. 1. 0. 0. 2. 0. 2. 1. 1. 0. 1. 1. 0. 2. 1. 0. 1. 2.
+ 0. 2. 2. 2. 1. 1. 0. 1. 1. 1. 2. 2. 2. 1. 2. 0. 0. 2. 1. 2. 0. 1. 0. 0.
+ 1. 2. 1. 2. 1. 1. 1. 2. 2. 1. 1. 1. 1. 1. 0. 2. 1. 2. 1. 0. 0. 0. 2. 0.
+ 0. 1. 0. 1. 0. 0. 1. 1. 0. 0. 0. 1. 2. 0. 0. 1. 2. 2. 2. 2. 0. 1. 0. 1.]
+
+
+Accuracy for Gradient Boosting - Optimized: 0.91
+
+
+Classification Report for Gradient Boosting - Optimized:
+               precision    recall  f1-score   support
+
+         0.0       0.99      0.87      0.93        85
+         1.0       0.91      0.92      0.92        90
+         2.0       0.84      0.95      0.89        65
+
+    accuracy                           0.91       240
+   macro avg       0.91      0.92      0.91       240
+weighted avg       0.92      0.91      0.91       240
+
+Accuracy List:  [0.9083333333333333, 0.9208333333333333, 0.8541666666666666, 0.8541666666666666, 0.9083333333333333, 0.9083333333333333, 0.925, 0.925, 0.875, 0.9125]
+
+Accuracy Ranking:
+                            Model_name  Accuracy
+6       Decision tree - Gini optimized  0.925000
+7    Decision tree - Entropy optimized  0.925000
+1              Random Forest optimized  0.920833
+9        Gradient Boosting - Optimized  0.912500
+0                        Random Forest  0.908333
+5              Decision tree - Entropy  0.908333
+4                 Decision tree - Gini  0.908333
+8                    Gradient Boosting  0.875000
+2  Support Vector Machine (One Vs One)  0.854167
+3  Support Vector Machine (One Vs All)  0.854167
+
+Random Forest: 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.560833        0.023805
+3             Humidity         0.000833        0.004859
+4      Light_Intensity         0.000833        0.003118
+2     Soil_Temperature        -0.000833        0.004859
+1  Ambient_Temperature        -0.005000        0.004082
+5              Soil_pH        -0.008333        0.004564
+
+
+Random Forest optimized: 
+               feature  importance_mean  importance_std
+0        Soil_Moisture     5.758333e-01        0.025604
+2     Soil_Temperature     4.166667e-03        0.002635
+1  Ambient_Temperature     2.500000e-03        0.002041
+3             Humidity     2.500000e-03        0.003333
+4      Light_Intensity     2.500000e-03        0.005000
+5              Soil_pH    -2.220446e-17        0.002635
+
+
+Support Vector Machine (One Vs One): 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.500000        0.027259
+5              Soil_pH         0.005000        0.013017
+4      Light_Intensity         0.003333        0.010672
+3             Humidity         0.001667        0.006770
+1  Ambient_Temperature        -0.005833        0.007728
+2     Soil_Temperature        -0.013333        0.010672
+
+
+Support Vector Machine (One Vs All): 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.500000        0.027259
+5              Soil_pH         0.005000        0.013017
+4      Light_Intensity         0.003333        0.010672
+3             Humidity         0.001667        0.006770
+1  Ambient_Temperature        -0.005833        0.007728
+2     Soil_Temperature        -0.013333        0.010672
+
+
+Decision tree - Gini: 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.560000        0.024095
+1  Ambient_Temperature         0.000000        0.000000
+2     Soil_Temperature         0.000000        0.000000
+3             Humidity         0.000000        0.000000
+5              Soil_pH         0.000000        0.000000
+4      Light_Intensity        -0.003333        0.004082
+
+
+Decision tree - Entropy: 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.560000        0.024095
+1  Ambient_Temperature         0.000000        0.000000
+2     Soil_Temperature         0.000000        0.000000
+3             Humidity         0.000000        0.000000
+5              Soil_pH         0.000000        0.000000
+4      Light_Intensity        -0.003333        0.004082
+
+
+Decision tree - Gini optimized: 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.575833        0.025194
+1  Ambient_Temperature         0.000000        0.000000
+2     Soil_Temperature         0.000000        0.000000
+3             Humidity         0.000000        0.000000
+4      Light_Intensity         0.000000        0.000000
+5              Soil_pH         0.000000        0.000000
+
+
+Decision tree - Entropy optimized: 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.575833        0.025194
+1  Ambient_Temperature         0.000000        0.000000
+2     Soil_Temperature         0.000000        0.000000
+3             Humidity         0.000000        0.000000
+4      Light_Intensity         0.000000        0.000000
+5              Soil_pH         0.000000        0.000000
+
+
+Gradient Boosting: 
+               feature  importance_mean  importance_std
+0        Soil_Moisture         0.526667        0.022608
+3             Humidity         0.005833        0.006236
+2     Soil_Temperature         0.000833        0.003118
+1  Ambient_Temperature        -0.003333        0.010992
+5              Soil_pH        -0.004167        0.005270
+4      Light_Intensity        -0.005833        0.010069
 
