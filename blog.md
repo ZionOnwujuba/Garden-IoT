@@ -235,3 +235,24 @@ Feature Importances
 ![Dataset 1 Feature Importances 1](/pytorch/Pictures/Dataset_1_feature_importance.png)
 ![Dataset 1 Feature Importances 2](/pytorch/Pictures/Dataset_1_feature_importance(1).png)
 ![Dataset 1 Feature Importances 3](/pytorch/Pictures/Dataset_1_feature_importance(2).png)
+
+Now the winners have changed! We can see that every model has improved to the point that there is now a 6-way tie between them. This is a good problem to have as it means less compute heavy models (like decision tree in comparison to random forest) can still be just as effective. 
+
+It also shows the value in the Model-Off, no dataset is made the same. While differences between the results of round 1 and 2 are partially due to the mainly categorical data of dataset 1 and the wholly numeric data of dataset 2, it also shows that models are not static. Just becuase a dataset is similar to another (multivariate data, multivariate numeric data), does not guarantee similar results. Testing, comparison, and analysis is key to getting the most bang for my buck on this project.
+
+You might also notice that a model and its optimized version may be tied in accuracy. This is because the grid search parameters I chose *includes* the hyperparaters I originally chose for the non-optimized model, so it's just as likely that the best model the grid search finds happens to be the one with the original hyperparameters. It is also likely that the accuracy does not change with the new hyperparameters and that the original model works just fine. That happens, but it also means we can get by with less complex models which is good for us!
+
+*With all that said, the winners of round 2 are:*
+- **Random Forest**
+- Random Forest optimized
+- Gradient Boosting - Optimized
+
+Finally, onto Round 3!
+#### Final Dataset
+
+You might be saying, "Round 3? There's only two datasets!" And you would be right! However, I came to the conclusion that due to the differences in results, having a final dataset with features that match the expected sensor inputs of my final device would be helpful for two main reasons:
+1. I can see which model is able to make predictions on a restricted dataset and therefore the results could be more evenly applied to what I should expect for the final product.
+2. The more data a model has, the better the prediction. But I won't have as many features as I've been testing, so slimming down the feature count again better informs my final choice.
+
+With that I took [Sulani Ishara's dataset](https://www.kaggle.com/code/sulaniishara/plant-health-prediction-with-ml/notebook) and created an input vector that only contained the soil moisture, ambient temperature, soil temperature, humidity, light intensity, and soil ph columns.
+

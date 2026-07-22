@@ -18,7 +18,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 import json
-matplotlib.use('Agg')
+matplotlib.use('Qt5Agg')
+# matplotlib.use('Agg')
 
 """
 All data from the UC Irvine Machine Learning Repository 
@@ -131,11 +132,13 @@ print(co_mtx)
 sns.heatmap(co_mtx, cmap="YlGnBu", annot=True)
 plt.title("Correlation Heatmap")
 plt.show(block=True)
+plt.close('all')
 
 
 sns.lmplot(x="Gender", y="Height", data=dataset, hue="NObeyesdad");
 plt.title("Regression Plot of Gender and Height")
 plt.show(block=True)
+plt.close('all')
 
 
 # Profile Plot
@@ -144,6 +147,7 @@ ax.legend(loc='center left', bbox_to_anchor=(1, 0.5));
 plt.title("Profile Plot")
 
 plt.show(block=True)
+plt.close('all')
 
 
 "Model Metrics Stats"
@@ -290,6 +294,7 @@ Metrics["Confusion_matrices"].append(confmat_tensor)
 plt.title("Random Forest Confusion Matrix")
 
 plt.show(block=True)
+plt.close('all')
 """
 print("\nRandom Forest (Optimized)\n")
 # Parameter grid for random forest for hyperparameter tuning
@@ -359,6 +364,7 @@ Metrics["Confusion_matrices"].append(confmat_tensor)
 plt.title("Confusion Matrix for Random Forest after Hyperparameter tuning")
 
 plt.show(block=True)
+plt.close('all')
 """
 """
 Support Vector Machine (SVM) Algorithm (From GeeksForGeeks)
@@ -431,6 +437,7 @@ Metrics["Permuation_importance"].append(importance_df)
 )
 plt.title("SVM Confusion Matrix (One vs One)")
 plt.show(block=True)
+plt.close('all')
 """
 Metrics["accuracy"].append({
     "SVM_ovo": accuracy
@@ -484,6 +491,7 @@ Metrics["Permuation_importance"].append(importance_df)
 )
 plt.title("SVM Confusion Matrix (One vs All)")
 plt.show(block=True)
+plt.close('all')
 """
 Metrics["accuracy"].append({
     "SVM_ova": accuracy
@@ -571,6 +579,7 @@ Metrics["Permuation_importance"].append(importance_df)
 )
 plt.title("Decision Tree Confusion Matrix for Gini Training")
 plt.show(block=True)
+plt.close('all')
 """
 Metrics["accuracy"].append({
     "Decision_Tree_Gini": accuracy
@@ -613,6 +622,7 @@ Metrics["Permuation_importance"].append(importance_df)
 )
 plt.title("Decision Tree Confusion Matrix for Entropy Training")
 plt.show(block=True)
+plt.close('all')
 """
 Metrics["accuracy"].append({
     "Decision_Tree_Entropy": accuracy
@@ -678,6 +688,7 @@ Metrics["Permuation_importance"].append(importance_df)
 )
 plt.title("Optimized Decision Tree Confusion Matrix for Gini Training")
 plt.show(block=True)
+plt.close('all')
 """
 Metrics["accuracy"].append({
     "Optimized_Decision_Tree_Gini": accuracy
@@ -723,6 +734,7 @@ Metrics["Permuation_importance"].append(importance_df)
 )
 plt.title("Optimized Decision Tree Confusion Matrix for Entropy Training")
 plt.show(block=True)
+plt.close('all')
 """
 Metrics["accuracy"].append({
     "Optimized_Decision_Tree_Entropy": accuracy
@@ -809,7 +821,8 @@ Metrics["Permuation_importance"].append(importance_df)
     colorbar=True
 )
 plt.title("Gradient Boosting Classifier")
-plt.show(block=True)"""
+plt.show(block=True)
+plt.close('all')"""
 
 Metrics["accuracy"].append({
     "GBC": accuracy
@@ -882,6 +895,7 @@ fig, ax = plot_confusion_matrix(
 plt.title("Gradient Boosting Classifier after Hyperparameter tuning")
 
 plt.show(block=True)
+plt.close('all')
 """
 print("\nMultivariate Long Short Term Memory Model\n")
 
@@ -1016,7 +1030,8 @@ fig, ax = plot_confusion_matrix(
     figsize=(10, 7),
     colorbar=True
 )
-plt.show(block=True)"""
+plt.show(block=True)
+plt.close('all')"""
 
 test_predictions = np.array(test_predictions).flatten()
 test_target_seq = np.array(test_target_seq).flatten()
@@ -1059,6 +1074,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
              title='Accuracy', color='green')
 
     plt.show(block=True)
+    plt.close('all')
     print(f"\nAccuracy Ranking:\n{accuracy_df}")
 
     "Classification Report Plot"
@@ -1082,6 +1098,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
     axes.flatten()[-1].legend(loc='lower right')
 
     plt.show(block=True)
+    plt.close('all')
 
     "Confusion matrix Plots"
     fig, axes = plt.subplots(nrows=2, ncols=2)
@@ -1094,6 +1111,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
         )
         axes[index].set_title(f"{title} Confusion Matrix")
     plt.show(block=True)
+    plt.close('all')
 
     fig, axes = plt.subplots(nrows=2, ncols=2)
     axes = axes.flatten()
@@ -1105,6 +1123,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
         )
         axes[index].set_title(f"{title} Confusion Matrix")
     plt.show(block=True)
+    plt.close('all')
 
     plot_confusion_matrix(    
         conf_mat=Metrics["Confusion_matrices"][8].numpy(),
@@ -1113,6 +1132,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
     )
     plt.title(f"{plt_names[8]} Confusion Matrix")
     plt.show(block=True)
+    plt.close('all')
 
     "Permutation Importance Plots"
     fig, axes = plt.subplots(nrows=3, ncols=1)
@@ -1125,6 +1145,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
         ax.set_title(f"{plt_names[index]} Feature Importance with Standard Deviation")
     plt.tight_layout()
     plt.show(block=True)
+    plt.close('all')
 
     fig, axes = plt.subplots(nrows=3, ncols=1)
     axes = axes.flatten()
@@ -1136,6 +1157,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
         ax.set_title(f"{plt_names[index+3]} Feature Importance with Standard Deviation")
     plt.tight_layout()
     plt.show(block=True)
+    plt.close('all')
 
     fig, axes = plt.subplots(nrows=3, ncols=1)
     axes = axes.flatten()
@@ -1147,6 +1169,7 @@ def model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, x_ax
         ax.set_title(f"{plt_names[index+6]} Feature Importance with Standard Deviation")
     plt.tight_layout()
     plt.show(block=True)
+    plt.close('all')
 
 model_metric_plot_tool_comp(Metrics, col_names, plt_names, class_names, 'Obesity Level')
 
@@ -1208,6 +1231,7 @@ columns_to_plot = dataset.columns[np.r_[1:13]].tolist()
 dataset.plot(column=columns_to_plot, kind='line')
 plt.title("Profile Plot")
 plt.show(block=True)
+plt.close('all')
 
 columns_to_plot = dataset.columns[np.r_[1:5]].tolist()
 dataset.boxplot(column=columns_to_plot, by='Plant_Health_Status')
@@ -1216,6 +1240,7 @@ dataset.boxplot(column=columns_to_plot, by='Plant_Health_Status')
 plt.suptitle("Distribution of Columns by Category (1)", y=1.02)
 plt.tight_layout()
 plt.show(block=True)
+plt.close('all')
 
 columns_to_plot = dataset.columns[np.r_[5:9]].tolist()
 dataset.boxplot(column=columns_to_plot, by='Plant_Health_Status')
@@ -1224,6 +1249,7 @@ dataset.boxplot(column=columns_to_plot, by='Plant_Health_Status')
 plt.suptitle("Distribution of Columns by Category (2)", y=1.02)
 plt.tight_layout()
 plt.show(block=True)
+plt.close('all')
 
 columns_to_plot = dataset.columns[np.r_[9:13]].tolist()
 dataset.boxplot(column=columns_to_plot, by='Plant_Health_Status')
@@ -1232,6 +1258,7 @@ dataset.boxplot(column=columns_to_plot, by='Plant_Health_Status')
 plt.suptitle("Distribution of Columns by Category (3)", y=1.02)
 plt.tight_layout()
 plt.show(block=True)
+plt.close('all')
 
 
 
@@ -1262,6 +1289,7 @@ print(co_mtx)
 sns.heatmap(co_mtx, cmap="YlGnBu", annot=True)
 plt.title("Correlation Heatmap")
 plt.show(block=True)
+plt.close('all')
 
 
 X_train, X_test, y_train, y_test = train_test_split(input_features_ph, target_ph, test_size=0.2, random_state=42)
