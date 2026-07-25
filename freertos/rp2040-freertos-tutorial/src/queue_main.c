@@ -45,7 +45,7 @@ void led_task(void *pvParameters) // The task function must return void and take
     while (1){
         cyw43_arch_gpio_put(CYW43_WL_GPIO_LED_PIN, 1);
         uIValueToSend = 1;
-        xQueueSend(xQueue, &uIValueToSend, 0U); // Queue name, ptr var to send, delay time if queue is empty
+        xQueueSend(xQueue, &uIValueToSend, 0U); // Queue name, ptr var to send, delay time if queue is full
         vTaskDelay(pdMS_TO_TICKS(250));
         
 
@@ -63,11 +63,11 @@ void usb_task(void *pvParameters){
 
     while(1){
         xQueueReceive(xQueue, // The handle of the queue where the item is being posted
-            &uIRecivedValue, // A pointer to the data you want to place on the queue. 
+            &uIRecivedValue, // A pointer to the data you want to take off the queue. 
             portMAX_DELAY); /* The maximum amount of time (in tick periods) the task 
-                                should block and wait if the queue is currently full. 
+                                should block and wait if the queue is currently empty. 
                                 If you pass 0, the function returns immediately if the 
-                                queue is full. If you pass portMAX_DELAY, the task 
+                                queue is empty. If you pass portMAX_DELAY, the task 
                                 will wait indefinitely for space to become available 
                                 (provided INCLUDE_vTaskSuspend is set to 1)
                             */

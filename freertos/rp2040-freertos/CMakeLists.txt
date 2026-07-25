@@ -22,6 +22,10 @@ SET(ProjectName rp2040-freertos)
 # Set any variables required for importing libraries
 SET(FREERTOS_KERNEL_PATH ${CMAKE_CURRENT_SOURCE_DIR}/lib/FreeRTOS-Kernel)
 
+# Add these lines to the top of your root CMakeLists.txt
+
+
+
 # Import those libraries
 include(pico_sdk_import.cmake)
 include(${FREERTOS_KERNEL_PATH}/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_import.cmake)

@@ -1,3 +1,6 @@
 [submodule "freertos/rp2040-freertos-tutorial"]
 	path = freertos/rp2040-freertos-tutorial
 	url = https://github.com/LearnEmbeddedSystems/rp2040-freertos-template
+[submodule "freertos/rp2040-freertos/lib/executorch"]
+	path = freertos/rp2040-freertos/lib/executorch
+	url = https://github.com/pytorch/executorch
