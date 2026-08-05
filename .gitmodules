@@ -4,3 +4,6 @@
 [submodule "freertos/rp2040-freertos/lib/executorch"]
 	path = freertos/rp2040-freertos/lib/executorch
 	url = https://github.com/pytorch/executorch
+[submodule "freertos/rp2040-freertos/lib/components/coreMQTT"]
+	path = freertos/rp2040-freertos/lib/components/coreMQTT
+	url = git@github.com:FreeRTOS/coreMQTT.git

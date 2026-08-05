@@ -1,7 +1,5 @@
 /**
- * Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
- *
- * SPDX-License-Identifier: BSD-3-Clause
+Based from sample code provided by manufacturer
  **/
 
 #include <stdio.h>
@@ -22,7 +20,7 @@
 bool read_from_dht(dht_data *result) {
     int data[5] = {0, 0, 0, 0, 0};
     uint last_state = 1;
-    uint j = 0;
+    uint j = 0; // bit count
     /*
     The DHT22 stays in a low-power sleep mode until the 
     Pico wakes it up. The Pico initiates communication 
@@ -50,6 +48,11 @@ bool read_from_dht(dht_data *result) {
     */
     for (uint i = 0; i < MAX_TIMINGS; i++) {
         uint counter = 0;
+        /*
+        Sensor responds to start sequence by pulling the 
+        line LOW and HIGH several times to signal it is 
+        ready, wait until this response sequence is completed
+        */
         while (gpio_get(DHT_PIN) == last_state) {
             counter++;
             sleep_us(1);

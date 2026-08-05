@@ -24,7 +24,7 @@ void bh1750_init(i2c_inst_t *i2c) {
 uint16_t bh1750_read_light(i2c_inst_t *i2c) {
     uint8_t buffer[2] = {0, 0};
     i2c_read_blocking(i2c, ADDR, buffer, 2, false);
-    uint16_t val = (buffer[0] << 8 | buffer[1]);
+    uint16_t val = (buffer[0] << 8 | buffer[1]); // Little endian format
     return val;
 }
 /*
