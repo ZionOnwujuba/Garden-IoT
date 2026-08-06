@@ -12,6 +12,7 @@ extern "C" {
     #include "pico/cyw43_arch.h"
     #include "pico/time.h"
     #include <queue.h>
+    #include "key_certs.h"
 
 }
 #include <stdio.h>
@@ -54,9 +55,9 @@ extern "C" {
     int _kill(int pid, int sig) { return -1; }
 
     // AWS Credentials Strings (TODO: Add to .gitignore)
-    extern const char rootCA[]= "-----BEGIN CERTIFICATE-----\n...";
-    extern const char deviceCert[]= "-----BEGIN CERTIFICATE-----\n...";
-    extern const char privateKey[]= "-----BEGIN CERTIFICATE-----\n...";
+    extern const char rootCA[] = ROOTCA;
+    extern const char deviceCert[]= DEVICECERT;
+    extern const char privateKey[]= PRIVATEKEY;
     
      #include "hardware/rosc.h"
 
@@ -144,14 +145,14 @@ using executorch::aten::Tensor;
 #define MEMORY_POOL_SIZE            (40 * 1024)
 
 // TODO: Add to gitignore
-const char* ssid = "WiFiSSID";
-const char* password = "WiFiPassword";
-const char* awsEndpoint = "XXXXXXXXXX.iot.ap-south-1.amazonaws.com";
-const int awsPort = 8883;
+const char* ssid = SSID;
+const char* password = WIFIPWD;
+const char* awsEndpoint = AWSENDPOINT;
+const int awsPort = AWSPORT;
 
-const char* pubTopic = "picow/sensors/data"; 
-const char* subTopic = "picow/sensors/commands";
-const char* clientID = "picow-sensor-01";
+const char* pubTopic = PUBTOPIC; 
+const char* subTopic = SUBTOPIC;
+const char* clientID = CLIENTID;
 
 
 
@@ -168,10 +169,12 @@ static MQTTContext_t xMqttContext;
 static NetworkContext_t xNetworkContext;
 static TransportInterface_t xTransport;
 static mbedtls_net_context xNetContext;
-static mbedtls_ssl_context xSslContext;
-static mbedtls_ssl_config xSslConfig;
-static mbedtls_entropy_context xEntropyContext;
-static mbedtls_ctr_drbg_context xCtrDrbgContext;
+static mbedtls_ssl_context xSslContext; // TLS connection state
+static mbedtls_ssl_config xSslConfig; // TLS configuration (ciphers, TLS version, etc)
+static mbedtls_entropy_context xEntropyContext; // RNG for session keys, 
+                                                // gathers raw randomness from hardware RNG hook
+static mbedtls_ctr_drbg_context xCtrDrbgContext; // Cryptographically secure PRNG that is seeded 
+                                                // from entropy and prouces random numbers TLS uses
 static mbedtls_x509_crt xRootCaCert;
 static mbedtls_x509_crt xClientCert;
 static mbedtls_pk_context xPrivKey;
@@ -295,7 +298,7 @@ bool connectToAWS() {
     certificate formats to eliminate memory remnants from previous boots.
     (mbedtls_net_init is removed as the LwIP socket is managed directly).
     */
-    mbedtls_ssl_init(&xSslContext);
+    mbedtls_ssl_init(&xSslContext); 
     mbedtls_ssl_config_init(&xSslConfig);
     mbedtls_entropy_init(&xEntropyContext);
     mbedtls_ctr_drbg_init(&xCtrDrbgContext);
@@ -310,18 +313,29 @@ bool connectToAWS() {
         This establishes a basic, raw connection over Port 8883, but it 
         is completely unencrypted at this exact moment.
     */
-    mbedtls_ctr_drbg_seed(&xCtrDrbgContext, mbedtls_entropy_func, &xEntropyContext, NULL, 0);
-    mbedtls_x509_crt_parse(&xRootCaCert, (const unsigned char *)rootCA, strlen(rootCA) + 1);
+    mbedtls_ctr_drbg_seed(&xCtrDrbgContext, mbedtls_entropy_func, &xEntropyContext, NULL, 0); // feeds hardware RNG entropy into PRNG, 
+                                                                                            // mbedtls_ctr_drbg_random is now the N random bytes function
+    mbedtls_x509_crt_parse(&xRootCaCert, (const unsigned char *)rootCA, strlen(rootCA) + 1); // Passing certs, length (including null terminator)
     mbedtls_x509_crt_parse(&xClientCert, (const unsigned char *)deviceCert, strlen(deviceCert) + 1);
     mbedtls_pk_parse_key(&xPrivKey, (const unsigned char *)privateKey, strlen(privateKey) + 1, NULL, 0, mbedtls_ctr_drbg_random, &xCtrDrbgContext);
 
     printf("Connecting TCP socket to AWS...\n");
+    /*
+    Creates a socket (communication endpoint). AF_INET = IPv4, SOCK_STREAM = TCP (byte ordered stream 
+    over UDP's fire and forget). Returns a file description like integer used to refer to this connection 
+    in subsequent calls
+    */
     int sock_fd = lwip_socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sock_fd < 0) {
         printf("Failed to create LwIP socket: %d\n", sock_fd);
         return false;
     }
 
+    /*
+    awsEndpoint is the human-readable hostname, the function asks a DNS server what
+    IP address the name poinst to and gets sent back a hostent struct
+    containing one or more IPs
+    */
     struct hostent *pHostEntry = lwip_gethostbyname(awsEndpoint);
     if (pHostEntry == NULL || pHostEntry->h_addr_list[0] == NULL) {
         printf("DNS resolution failed for %s\n", awsEndpoint);
@@ -329,6 +343,12 @@ bool connectToAWS() {
         return false;
     }
 
+    /*
+    Builds destination address struct that connect() needs (address family, port, and IP).
+    htons() = host to network short
+        Since the endianness is dependent on CPU architectures and network protocols use big ending, 
+        this convers the port number into that standard form.
+    */
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(server_addr));
     server_addr.sin_family = AF_INET;
@@ -337,7 +357,19 @@ bool connectToAWS() {
 
     printf("Resolved %s -> %s\n", awsEndpoint, inet_ntoa(server_addr.sin_addr));
 
-    // 2. Connect via lwIP directly
+    // Connect via lwIP directly
+    /* TCP (Transmission Control Protocol) three-way handshake
+    Synchronize(SYN)
+        Client sends packet with SYN flags set and a starting sequence number
+        to ask server for connection
+    Synchronize-Acknowledgment(SYN-ACK):
+        Server replies with a packet that has both SYN and ACK flags set, 
+        acknowledging the client's request and shares its own starting sequence
+        number
+    ACK (Acknowledgment)
+        Client sends back an ACK packet to confirm the server's message.
+        Connection is open, data transfer can begin albeit, with no encryption
+    */
     if (lwip_connect(sock_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
         printf("Failed to connect LwIP socket\n");
         lwip_close(sock_fd);
@@ -353,23 +385,37 @@ bool connectToAWS() {
         complex math required for the handshake. Once complete, an 
         encrypted tunnel is established.
     */
-    mbedtls_ssl_config_defaults(&xSslConfig, MBEDTLS_SSL_IS_CLIENT, MBEDTLS_SSL_TRANSPORT_STREAM, MBEDTLS_SSL_PRESET_DEFAULT);
-    mbedtls_ssl_conf_authmode(&xSslConfig, MBEDTLS_SSL_VERIFY_REQUIRED);
-    mbedtls_ssl_conf_ca_chain(&xSslConfig, &xRootCaCert, NULL);
-    mbedtls_ssl_conf_rng(&xSslConfig, mbedtls_ctr_drbg_random, &xCtrDrbgContext);
-    mbedtls_ssl_conf_own_cert(&xSslConfig, &xClientCert, &xPrivKey);
 
-    mbedtls_ssl_setup(&xSslContext, &xSslConfig);
-    mbedtls_ssl_set_hostname(&xSslContext, awsEndpoint);
+    // TLS Config
+    mbedtls_ssl_config_defaults(&xSslConfig, MBEDTLS_SSL_IS_CLIENT, MBEDTLS_SSL_TRANSPORT_STREAM, MBEDTLS_SSL_PRESET_DEFAULT); // Config as a client
+    mbedtls_ssl_conf_authmode(&xSslConfig, MBEDTLS_SSL_VERIFY_REQUIRED); // Rejects the connection if server's cert doesn't validate
+    mbedtls_ssl_conf_ca_chain(&xSslConfig, &xRootCaCert, NULL); // Setting trusted CA
+    mbedtls_ssl_conf_rng(&xSslConfig, mbedtls_ctr_drbg_random, &xCtrDrbgContext); // Setting RNG
+    mbedtls_ssl_conf_own_cert(&xSslConfig, &xClientCert, &xPrivKey); // Cert+key to show to server
+
+    mbedtls_ssl_setup(&xSslContext, &xSslConfig); // Applies the SSL config (the one set above) to the connection context
+    mbedtls_ssl_set_hostname(&xSslContext, awsEndpoint); // Used for Server Name Indication (telling the server which hostname 
+                                                         // you're trying to reach since one IP can host many TLS domains) and 
+                                                         // it's what the certificate hostname-matching check compares against during verification
     
     // Bind the raw socket descriptor & custom LwIP send/recv callbacks to Mbed TLS
+    // Since mbedtls is transport-agnostic (can run over a socket, a serial port, 
+    // etc, BIO means Basic I/O) we use lwip_mbedtls_bio_send/lwip_mbedtls_bio_recv 
+    // so whenever mbedtls needs to push or pull bytes, it calls the custom functions 
+    // which talk to the socket
     mbedtls_ssl_set_bio(&xSslContext, 
                         &sock_fd, 
                         lwip_mbedtls_bio_send, 
                         lwip_mbedtls_bio_recv, 
                         NULL);
+                        
 
     printf("Performing TLS handshake...\n");
+    // Drives the TLS handshake (ClientHello, ServerHello, certificate exchange, key agreement), 
+    // looping through the multi-round and non-blocking friendly trip
+    // mbedtls returns WANT_READ/WANT_WRITE to mean it needs more data or can't send at the 
+    // moment and to try again respectively, which is normal and expect. However, any other return
+    // means the handshake failed
     while ((iResult = mbedtls_ssl_handshake(&xSslContext)) != 0) {
         if (iResult != MBEDTLS_ERR_SSL_WANT_READ && iResult != MBEDTLS_ERR_SSL_WANT_WRITE) {
             printf("TLS Handshake failed: -0x%x\n", -iResult);
@@ -380,6 +426,9 @@ bool connectToAWS() {
     printf("TLS Handshake successful!\n");
 
     // Initialize coreMQTT Context Mapping
+    // With the socket encrypted, this layer puts the MQTT pub/sub messaging protocol over it
+    // Since coreMQTT does not know anyhting about TLS or sockets, the function pointers
+    // transport_send/recv so it can send/recieve MQTT packets through the TLS tunnel
     xTransport.pNetworkContext = &xNetworkContext;
     xTransport.recv = transport_recv;
     xTransport.send = transport_send;
@@ -393,8 +442,15 @@ bool connectToAWS() {
     */
     static uint8_t ucNetworkBuffer[2048];
     MQTTFixedBuffer_t xFixedBuffer = { .pBuffer = ucNetworkBuffer, .size = sizeof(ucNetworkBuffer) };
+    
+    // Sets up MQTT client state (which transport to use, time function to track timeouts, a 
+    // callback for unsolicited incoming messages, and a fixed buffer to serialize/parse 
+    // packets into since there is no dynamic allocation)
     MQTT_Init(&xMqttContext, &xTransport, prvGetTimeMs, prvEventCallback, &xFixedBuffer);
 
+    // Sends the MQTT Connect packet (application layer handshake where the broker is told 
+    // the client ID and the connection preferences and the server accepts or rejects the 
+    // device), a TLS handshake can succeed while MQTT fails (bad client ID or policy denial)
     MQTTConnectInfo_t xConnectInfo = {};
     xConnectInfo.cleanSession = true;
     xConnectInfo.pClientIdentifier = clientID;
@@ -405,6 +461,8 @@ bool connectToAWS() {
     bool bSessionPresent;
     MQTTStatus_t xMqttStatus = MQTT_Connect(&xMqttContext, &xConnectInfo, NULL, 5000, &bSessionPresent, NULL, NULL);
     
+    // Only if MQTT-level connect succeeds does the device subscribe to the command topic and then 
+    // report success to vAWSIotTask
     if (xMqttStatus == MQTTSuccess) {
         printf(" connected!\n");
         
@@ -684,17 +742,6 @@ extern "C" void et_pal_init(void) {}
 void lcd_wifi_bat_task(void *pvParameters){
     // Set up standard Pico I2C block at 100kHz standard speed
     char buffer[50];
-    i2c_init(I2C_PORT_LCD, 100 * 1000);
-    gpio_set_function(SDA_PIN_LCD, GPIO_FUNC_I2C);
-    gpio_set_function(SCL_PIN_LCD, GPIO_FUNC_I2C);
-    gpio_pull_up(SDA_PIN_LCD);
-    gpio_pull_up(SCL_PIN_LCD);
-    
-    // Boot sequence
-    gravity_lcd_init();
-    
-    // Set backlight color (Optional: Red = 255, Green = 0, Blue = 128)
-    gravity_set_rgb(255, 0, 128);
     static final_output_package receiving_output;
 
     UBaseType_t uxHighWaterMark;
@@ -952,16 +999,15 @@ In ~/Documents/Projects/Garden-IoT/freertos/rp2040-freertos:
 > export PICO_SDK_PATH=/home/zoino/.pico-sdk/sdk/2.3.0  
 
 > cmake -G Ninja .. \
-        -DCMAKE_TOOLCHAIN_FILE=$PICO_SDK_PATH/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake \
-        -DCMAKE_BUILD_TYPE=MinSizeRel \
-        -DGFLAGS_INTTYPES_FORMAT=C99 \
-        -DEXECUTORCH_BUILD_XNNPACK=OFF \
-        -DEXECUTORCH_BUILD_CPUINFO=OFF \
-        -DEXECUTORCH_BUILD_PORTABLE_KERNELS=ON \
-        -DEXECUTORCH_BUILD_EXECUTOR_RUNNER=OFF \
-        -DCMAKE_THREAD_LIBS_INIT="" \
-        -DThreads_FOUND=TRUE \
-        -DPython3_EXECUTABLE=(which python3)
+  -DCMAKE_TOOLCHAIN_FILE=$PICO_SDK_PATH/cmake/preload/toolchains/pico_arm_cortex_m0plus_gcc.cmake \
+  -DCMAKE_BUILD_TYPE=MinSizeRel \
+  -DGFLAGS_INTTYPES_FORMAT=C99 \
+  -DEXECUTORCH_BUILD_XNNPACK=OFF \
+  -DEXECUTORCH_BUILD_CPUINFO=OFF \
+  -DEXECUTORCH_BUILD_PTHREADPOOL=OFF \
+  -DEXECUTORCH_BUILD_PORTABLE_KERNELS=ON \
+  -DEXECUTORCH_BUILD_EXECUTOR_RUNNER=OFF \
+  -DPython3_EXECUTABLE=(which python3)
 > ninja
 
 

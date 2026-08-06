@@ -37,6 +37,7 @@ add_library(peripheral_drivers STATIC
     peripheral-libs/light_sensor.h
     peripheral-libs/rs485.c
     peripheral-libs/rs485.h
+    key_certs.h
     constants.h
     gini_model.h
 )

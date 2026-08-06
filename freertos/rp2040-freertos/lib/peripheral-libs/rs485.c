@@ -4,6 +4,10 @@
 #include "hardware/gpio.h"
 #include "rs485.h"
 #include "constants.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#include "hardware/irq.h"
 
 
 /*
@@ -52,7 +56,37 @@ How Your Code Validates This Sequence
 // Global Variables
 uint8_t Com[8] = { 0x01, 0x03, 0x00, 0x00, 0x00, 0x04, 0x44, 0x09 };
 
+static SemaphoreHandle_t xTxDoneSem;
+static const uint8_t *tx_buf;
+static size_t tx_len;
+static size_t tx_pos;
 
+static void on_uart_tx_irq(void) {
+    // Keep feeding the FIFO while there's room and bytes left to send
+    while (uart_is_writable(UART_ID_RS485) && tx_pos < tx_len) {
+        uart_putc_raw(UART_ID_RS485, tx_buf[tx_pos++]);
+    }
+
+    if (tx_pos >= tx_len) {
+        // Nothing left to feed — stop the interrupt from firing again
+        uart_set_irq_enables(UART_ID_RS485, false, false);
+
+        BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+        xSemaphoreGiveFromISR(xTxDoneSem, &xHigherPriorityTaskWoken); // Sets xHigherPriorityTaskWoken to true, 
+                                                                    // allowing for a high priority task that could 
+                                                                    // have been blocked because of the interrupt run again
+        portYIELD_FROM_ISR(xHigherPriorityTaskWoken); // FOrces context switch to happen once interrupt handler returns
+    }
+}
+
+void rs485_send_command(const uint8_t *buf, size_t len) {
+    tx_buf = buf;
+    tx_len = len;
+    tx_pos = 0;
+
+    uart_set_irq_enables(UART_ID_RS485, false, true); // enable TX-ready interrupt only
+    xSemaphoreTake(xTxDoneSem, portMAX_DELAY);          // task blocks here, core is free
+}
 
 // Forward Declarations
 
@@ -87,6 +121,12 @@ void rs485_init(void){
     gpio_set_function(UART_TX_PIN_RS485, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN_RS485, GPIO_FUNC_UART);
     uart_set_format(UART_ID_RS485, 8, 1, UART_PARITY_NONE); // 8N1 standard Modbus format
+
+    xTxDoneSem = xSemaphoreCreateBinary();
+
+    int irq_num = (UART_ID_RS485 == uart0) ? UART0_IRQ : UART1_IRQ;
+    irq_set_exclusive_handler(irq_num, on_uart_tx_irq); // Create an exclusive IRQ with this IRQ number
+    irq_set_enabled(irq_num, true); // Enable interrupt
 }
 
 void readHumiturePH(rs485_data *result) {
@@ -95,24 +135,18 @@ void readHumiturePH(rs485_data *result) {
     bool flag = true;
 
     while (flag) {
-        sleep_ms(100); // delay(100)
+        vTaskDelay(pdMS_TO_TICKS(100)); // delay(100)
 
         // Clear any stale remnants out of the RX hardware buffer before sending
         while (uart_is_readable(UART_ID_RS485)) {
             uart_getc(UART_ID_RS485); 
         }
 
-        // Send out the 8-byte Modbus command
-        // The hardware shield handles the auto-switching transmission lines instantly
-        for (int i = 0; i < 8; i++) {
-            uart_putc(UART_ID_RS485, Com[i]);
-        }
-        
-        // Block until all characters leave the Pico's internal hardware transmission FIFO
-        uart_tx_wait_blocking(UART_ID_RS485);
+       
+        rs485_send_command(Com, 8);
 
         // Give the sensor a small window to receive the command and begin talking back
-        sleep_ms(20); 
+        vTaskDelay(pdMS_TO_TICKS(20));
 
         // Read and match the incoming packet structural sequence
         if (readN(&ch, 1) == 1) {
@@ -155,6 +189,9 @@ uint8_t readN(uint8_t *buf, size_t len) {
             buffer[offset] = uart_getc(UART_ID_RS485); 
             offset++;
             left--;
+        }
+        else{
+            vTaskDelay(pdMS_TO_TICKS(1)); // Delay rather than spin and wait
         }
         
         // Calculate timeout window in milliseconds

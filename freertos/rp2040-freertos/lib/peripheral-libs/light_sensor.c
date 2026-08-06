@@ -3,6 +3,10 @@
 #include "hardware/i2c.h"
 #include "light_sensor.h"
 #include "constants.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 
 const uint8_t POWER_ON = 0x01;
@@ -19,6 +23,7 @@ void bh1750_init(i2c_inst_t *i2c) {
     i2c_write_blocking(i2c, ADDR, &cmd, 1, false);
     cmd = CONTINUOUS_HIGH_RES_MODE;
     i2c_write_blocking(i2c, ADDR, &cmd, 1, false);
+    sleep_ms(200); // 200ms pause before first measurement
 }
 
 uint16_t bh1750_read_light(i2c_inst_t *i2c) {

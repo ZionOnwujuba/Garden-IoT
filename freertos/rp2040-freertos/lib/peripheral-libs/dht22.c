@@ -8,6 +8,8 @@ Based from sample code provided by manufacturer
 #include "hardware/gpio.h"
 #include "dht22.h"
 #include "constants.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 #ifdef PICO_DEFAULT_LED_PIN
 #define LED_PIN PICO_DEFAULT_LED_PIN
@@ -29,7 +31,7 @@ bool read_from_dht(dht_data *result) {
     // 1. Send out the start signal sequence
     gpio_set_dir(DHT_PIN, GPIO_OUT);
     gpio_put(DHT_PIN, 0);
-    sleep_ms(18); // Pull low for at least 18ms
+    vTaskDelay(pdMS_TO_TICKS(18)); // Pull low for at least 18ms
     
     gpio_put(DHT_PIN, 1);
     sleep_us(40); // Pull high for 20-40us
@@ -46,6 +48,7 @@ bool read_from_dht(dht_data *result) {
         Bit '0': High pulse lasts 26–28 μs.
         Bit '1': High pulse lasts 70 μs
     */
+    taskENTER_CRITICAL(); // Disable task interrupts during bit counting to not get junk data
     for (uint i = 0; i < MAX_TIMINGS; i++) {
         uint counter = 0;
         /*
@@ -72,6 +75,7 @@ bool read_from_dht(dht_data *result) {
             j++;
         }
     }
+    taskEXIT_CRITICAL();
     /*
     The 5 bytes (data[0] to data[4]) hold the raw information:
         Bytes 0 & 1: Relative Humidity (multiplied by 10).

@@ -36,6 +36,7 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build." FORCE)
 endif()
 
+
 # Global target optimization flag (-Os shrinks size significantly)
 set(CMAKE_C_FLAGS_RELEASE "-Os" CACHE STRING "" FORCE)
 set(CMAKE_CXX_FLAGS_RELEASE "-Os" CACHE STRING "" FORCE)
